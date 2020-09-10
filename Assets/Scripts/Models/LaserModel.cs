@@ -2,7 +2,7 @@
 
 namespace AsteroidsClone
 {
-    public sealed class LaserModel
+    public sealed class LaserModel : Model
     {
 
     }

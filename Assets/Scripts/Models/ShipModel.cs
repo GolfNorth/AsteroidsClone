@@ -2,7 +2,7 @@
 
 namespace AsteroidsClone
 {
-    public sealed class ShipModel
+    public sealed class ShipModel : Model
     {
 
     }

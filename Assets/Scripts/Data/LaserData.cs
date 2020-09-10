@@ -12,6 +12,5 @@ namespace AsteroidsClone
         public GameObject PolygonalPrefab => polygonalPrefab;
         public GameObject SpritePrefab => spritePrefab;
         public float Range => range;
-        public float Speed => speed;
     }
 }

@@ -7,7 +7,7 @@ namespace AsteroidsClone
     public struct AsteroidSettings
     {
         public AsteroidSize AsteroidSize;
-        public float minSpeed;
-        public float maxSpeed;
+        public float MinSpeed;
+        public float MaxSpeed;
     }
 }
