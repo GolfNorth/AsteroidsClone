@@ -21,6 +21,8 @@ namespace AsteroidsClone
         private BoundsService _boundsService;
         private NotificationService _notificationService;
 
+        private ScoreController _scoreController;
+        private GameController _gameController;
         private AsteroidsController _asteroidsController;
         private UfosController _ufosController;
         private BulletsController _bulletsController;
@@ -35,15 +37,32 @@ namespace AsteroidsClone
         public BoundsService BoundsService => _boundsService;
         public NotificationService NotificationService => _notificationService;
 
-        public AsteroidsController AsteroidsController { get => _asteroidsController; set => _asteroidsController = value; }
-        public UfosController UfosController { get => _ufosController; set => _ufosController = value; }
-        public BulletsController BulletsController { get => _bulletsController; set => _bulletsController = value; }
+        public ScoreController ScoreController => _scoreController;
+        public GameController GameController => _gameController;
+        public AsteroidsController AsteroidsController => _asteroidsController;
+        public UfosController UfosController => _ufosController;
+        public BulletsController BulletsController => _bulletsController;
 
         private void Awake()
+        {
+            InitializeServices();
+            InitializeControllers();
+        }
+
+        private void InitializeServices()
         {
             _updateService = new UpdateService();
             _boundsService = new BoundsService();
             _notificationService = new NotificationService();
+        }
+
+        private void InitializeControllers()
+        {
+            _scoreController = new ScoreController(this);
+            _gameController = new GameController(this);
+            _asteroidsController = new AsteroidsController(this);
+            _ufosController = new UfosController(this);
+            _bulletsController = new BulletsController(this);
         }
     }
 }
