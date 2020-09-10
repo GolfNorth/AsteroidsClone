@@ -5,7 +5,7 @@ namespace AsteroidsClone
     [CreateAssetMenu(fileName = "AsteroidData")]
     public sealed class AsteroidData : ScriptableObject
     {
-        [SerializeField] private GameObject prefab;
+        [SerializeField] private GameObject polygonalPrefab;
         [SerializeField] private GameObject spritePrefab;
         [SerializeField] private float acceleration;
         [SerializeField] private float angularSpeed;
