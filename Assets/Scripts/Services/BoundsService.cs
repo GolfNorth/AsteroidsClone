@@ -20,7 +20,7 @@ namespace AsteroidsClone
 
         public BoundsService()
         {
-            _camera = Camera.current;
+            _camera = Camera.main;
 
             RecalculateBounds();
         }
