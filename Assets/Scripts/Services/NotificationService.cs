@@ -4,7 +4,7 @@ namespace AsteroidsClone
 {
     public class NotificationService
     {
-        private Action<NotificationType> Notification;
+        public Action<NotificationType> Notification;
 
         public void Notify(NotificationType notificationType)
         {
