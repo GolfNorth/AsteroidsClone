@@ -14,6 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   polygonalPrefab: {fileID: 0}
   spritePrefab: {fileID: 0}
-  acceleration: 0
-  angularSpeed: 0
-  maximumSpeed: 0
+  settings:
+  - AsteroidSize: 2
+    minSpeed: 5
+    maxSpeed: 7
+  - AsteroidSize: 1
+    minSpeed: 3
+    maxSpeed: 5
+  - AsteroidSize: 0
+    minSpeed: 1
+    maxSpeed: 3

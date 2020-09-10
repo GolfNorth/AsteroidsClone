@@ -11,10 +11,10 @@ namespace AsteroidsClone
         [SerializeField] private float angularSpeed;
         [SerializeField] private float maximumSpeed;
 
-        public GameObject PolygonalPrefab { get => polygonalPrefab; set => polygonalPrefab = value; }
-        public GameObject SpritePrefab { get => spritePrefab; set => spritePrefab = value; }
-        public float Acceleration { get => acceleration; set => acceleration = value; }
-        public float AngularSpeed { get => angularSpeed; set => angularSpeed = value; }
-        public float MaximumSpeed { get => maximumSpeed; set => maximumSpeed = value; }
+        public GameObject PolygonalPrefab => polygonalPrefab;
+        public GameObject SpritePrefab => spritePrefab;
+        public float Acceleration => acceleration;
+        public float AngularSpeed => angularSpeed;
+        public float MaximumSpeed => maximumSpeed;
     }
 }

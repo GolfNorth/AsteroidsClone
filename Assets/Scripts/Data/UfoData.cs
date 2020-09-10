@@ -9,8 +9,8 @@ namespace AsteroidsClone
         [SerializeField] private GameObject spritePrefab;
         [SerializeField] private float speed;
 
-        public GameObject PolygonalPrefab { get => polygonalPrefab; set => polygonalPrefab = value; }
-        public GameObject SpritePrefab { get => spritePrefab; set => spritePrefab = value; }
-        public float Speed { get => speed; set => speed = value; }
+        public GameObject PolygonalPrefab => polygonalPrefab;
+        public GameObject SpritePrefab => spritePrefab;
+        public float Speed => speed;
     }
 }
