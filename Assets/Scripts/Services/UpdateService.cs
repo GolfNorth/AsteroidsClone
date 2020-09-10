@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace AsteroidsClone
 {
-    public sealed class UpdateService : MonoBehaviour
+    public sealed class UpdateService
     {
         private readonly UpdateServiceComponent _component;
 

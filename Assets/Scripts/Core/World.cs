@@ -19,6 +19,7 @@ namespace AsteroidsClone
 
         private UpdateService _updateService;
         private BoundsService _boundsService;
+        private NotificationService _notificationService;
 
         private AsteroidsController _asteroidsController;
         private UfosController _ufosController;
@@ -30,8 +31,9 @@ namespace AsteroidsClone
         public List<Bullet> Bullets { get => _bullets; set => _bullets = value; }
         public Laser Laser { get => _laser; set => _laser = value; }
 
-        public UpdateService UpdateService { get => _updateService; set => _updateService = value; }
-        public BoundsService BoundsService { get => _boundsService; set => _boundsService = value; }
+        public UpdateService UpdateService => _updateService;
+        public BoundsService BoundsService => _boundsService;
+        public NotificationService NotificationService => _notificationService;
 
         public AsteroidsController AsteroidsController { get => _asteroidsController; set => _asteroidsController = value; }
         public UfosController UfosController { get => _ufosController; set => _ufosController = value; }
@@ -41,6 +43,7 @@ namespace AsteroidsClone
         {
             _updateService = new UpdateService();
             _boundsService = new BoundsService();
+            _notificationService = new NotificationService();
         }
     }
 }
