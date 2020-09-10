@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff19c813976270d4084a39193dadac49, type: 3}
   m_Name: AsteroidData
   m_EditorClassIdentifier: 
+  polygonalPrefab: {fileID: 0}
   spritePrefab: {fileID: 0}
   acceleration: 0
   angularSpeed: 0
