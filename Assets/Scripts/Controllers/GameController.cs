@@ -4,6 +4,10 @@
     {
         public GameController(World world) : base(world)
         {
+            var ship = new Ship(World);
+            World.Ship = ship;
+
+            World.UpdateService.Add(ship);
         }
     }
 }

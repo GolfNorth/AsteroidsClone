@@ -28,9 +28,9 @@ namespace AsteroidsClone
         public ViewMode ViewMode { get; set; }
 
         public Ship Ship { get; set; }
-        public IEnumerable<Ufo> Ufos { get; set; }
-        public IEnumerable<Asteroid> Asteroids { get; set; }
-        public IEnumerable<Bullet> Bullets { get; set; }
+        public List<Ufo> Ufos { get; set; }
+        public List<Asteroid> Asteroids { get; set; }
+        public List<Bullet> Bullets { get; set; }
         public Laser Laser { get; set; }
 
         public Dictionary<Type, Data> Data { get; private set; }

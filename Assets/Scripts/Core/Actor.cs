@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace AsteroidsClone
 {
-    public abstract class Actor<TModel, TView, TData> : Resident
+    public abstract class Actor<TModel, TView, TData> : Resident, IActivatable
         where TModel : Model
         where TView : View<TModel>
         where TData : Data
@@ -48,6 +48,12 @@ namespace AsteroidsClone
                 _model.ViewMode = ViewMode;
                 _view = value == ViewMode.Polygonal ? _polygonView : _spriteView;
             }
+        }
+
+        public bool IsActive
+        {
+            get => _model.IsActive;
+            set => _model.IsActive = value;
         }
     }
 }

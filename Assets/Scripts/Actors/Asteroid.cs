@@ -8,7 +8,7 @@ namespace AsteroidsClone
         {
         }
 
-        public bool IsEnabled { get; set; }
+        public bool IsActive { get; set; }
         public CircleShape Shape => Model.Shape;
 
         public void Disable()
@@ -24,7 +24,7 @@ namespace AsteroidsClone
 
         public void FixedTick()
         {
-            if (!IsEnabled) return;
+            if (!IsActive) return;
 
             Model.Move();
         }

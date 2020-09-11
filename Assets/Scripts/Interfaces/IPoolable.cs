@@ -1,8 +1,7 @@
 ﻿namespace AsteroidsClone
 {
-    public interface IPoolable
+    public interface IPoolable : IActivatable
     {
-        bool IsEnabled { get; set; }
         void Enable();
         void Disable();
     }

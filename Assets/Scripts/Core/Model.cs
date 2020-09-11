@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace AsteroidsClone
 {
-    public abstract class Model : Resident
+    public abstract class Model : Resident, IActivatable
     {
         private bool _isActive;
         private ViewMode _viewMode;

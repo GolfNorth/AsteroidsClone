@@ -6,19 +6,19 @@ namespace AsteroidsClone
     public sealed class ObjectPool<T> where T : IPoolable
     {
         private readonly Queue<T> _queue;
-        private readonly HashSet<T> _pool;
+        private readonly List<T> _pool;
         private int _count;
 
         public Func<T> GetInstance;
 
         public int Count => _count;
 
-        public IEnumerable<T> All => _pool;
+        public List<T> All => _pool;
 
         public ObjectPool()
         {
             _queue = new Queue<T>();
-            _pool = new HashSet<T>();
+            _pool = new List<T>();
             _count = 0;
         }
 
@@ -37,7 +37,7 @@ namespace AsteroidsClone
             }
 
             obj.Enable();
-            obj.IsEnabled = true;
+            obj.IsActive = true;
 
             _count++;
 
@@ -47,7 +47,7 @@ namespace AsteroidsClone
         public void Release(T obj)
         {
             obj.Disable();
-            obj.IsEnabled = false;
+            obj.IsActive = false;
             _queue.Enqueue(obj);
 
             _count--;
