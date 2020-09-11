@@ -9,7 +9,7 @@
             world.NotificationService.Notification += OnNotification;
         }
 
-        private void OnNotification(NotificationType notificationType)
+        private void OnNotification(NotificationType notificationType, object obj)
         {
             switch (notificationType)
             {
