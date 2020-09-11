@@ -4,7 +4,7 @@
     {
         protected World world;
 
-        protected Resident (World world)
+        public Resident (World world)
         {
             this.world = world;
         }
