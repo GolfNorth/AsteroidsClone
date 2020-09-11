@@ -29,8 +29,6 @@ namespace AsteroidsClone
 
         public void Randomize(AsteroidSize size = AsteroidSize.None, float minAngle = 0, float maxAngle = 360)
         {
-            Debug.Log(1);
-
             if (size == AsteroidSize.None)
             {
                 size = (AsteroidSize) Random.Range(1, System.Enum.GetValues(typeof(AsteroidSize)).Length);
