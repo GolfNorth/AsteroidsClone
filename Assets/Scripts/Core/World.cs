@@ -46,6 +46,8 @@ namespace AsteroidsClone
 
         private void Awake()
         {
+            ViewMode = ViewMode.Sprite;
+
             InitializeData();
             InitializeServices();
             InitializeControllers();

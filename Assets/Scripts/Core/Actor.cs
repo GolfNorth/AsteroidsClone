@@ -8,34 +8,46 @@ namespace AsteroidsClone
         where TView : View<TModel>
         where TData : Data
     {
-        private readonly TModel model;
-        private readonly TData data;
-        private TView view;
+        private readonly TModel _model;
+        private readonly TData _data;
+        private readonly TView _polygonView;
+        private readonly TView _spriteView;
+        private TView _view;
+        private ViewMode _viewMode;
 
         public Actor(World world) : base(world)
         {
-            GameObject gameObject;
+            _data = (TData) World.Data[typeof(TData)];
+            _model = (TModel) Activator.CreateInstance(typeof(TModel), new object[] { _data });
 
-            data = (TData) World.Data[typeof(TData)];
-            model = (TModel) Activator.CreateInstance(typeof(TModel), new object[] { data });
+            var spriteObject = GameObject.Instantiate(_data.SpritePrefab);
+            _spriteView = spriteObject.AddComponent<TView>();
+            _spriteView.ViewMode = ViewMode.Sprite;
+            _spriteView.Model = _model;
 
-            switch (World.ViewMode)
-            {
-                case ViewMode.Polygonal:
-                    gameObject = GameObject.Instantiate(data.PolygonalPrefab);
-                    break;
-                case ViewMode.Sprite:
-                default:
-                    gameObject = GameObject.Instantiate(data.SpritePrefab);
-                    break;
-            }
+            var polygonObject = GameObject.Instantiate(_data.PolygonalPrefab);
+            _polygonView = polygonObject.AddComponent<TView>();
+            _polygonView.ViewMode = ViewMode.Polygonal;
+            _polygonView.Model = _model;
 
-            view = gameObject.AddComponent<TView>();
-            view.Model = model;
+            ViewMode = World.ViewMode;
         }
 
-        public TModel Model => model;
+        public TModel Model => _model;
 
-        public TView View => view;
+        public TView View => _view;
+
+        public ViewMode ViewMode
+        {
+            get => _viewMode;
+            set
+            {
+                if (_viewMode == value) return;
+
+                _viewMode = value;
+                _model.ViewMode = ViewMode;
+                _view = value == ViewMode.Polygonal ? _polygonView : _spriteView;
+            }
+        }
     }
 }
