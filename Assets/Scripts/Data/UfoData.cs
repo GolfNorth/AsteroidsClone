@@ -3,7 +3,7 @@
 namespace AsteroidsClone
 {
     [CreateAssetMenu(fileName = "UfoData")]
-    public sealed class UfoData : ViewData
+    public sealed class UfoData : Data
     {
         [Header("Settings")]
         [SerializeField] private PolygonShape shape;

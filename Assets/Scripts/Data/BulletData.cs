@@ -3,7 +3,7 @@
 namespace AsteroidsClone
 {
     [CreateAssetMenu(fileName = "BulletData")]
-    public sealed class BulletData : ViewData
+    public sealed class BulletData : Data
     {
         [Header("Settings")]
         [SerializeField] private float range;

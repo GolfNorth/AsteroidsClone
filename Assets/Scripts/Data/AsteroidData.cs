@@ -4,23 +4,28 @@ using UnityEngine;
 namespace AsteroidsClone
 {
     [CreateAssetMenu(fileName = "AsteroidData")]
-    public sealed class AsteroidData : ViewData
+    public sealed class AsteroidData : Data
     {
         [Header("Settings")]
         [SerializeField] private AsteroidSettings[] settings;
         private Dictionary<AsteroidSize, AsteroidSettings> _settings;
 
-        public Dictionary<AsteroidSize, AsteroidSettings> Settings => _settings;
-
-        private void Awake()
+        public Dictionary<AsteroidSize, AsteroidSettings> Settings
         {
-            _settings = new Dictionary<AsteroidSize, AsteroidSettings>();
-
-            foreach (var s in settings)
+            get
             {
-                if (_settings.ContainsKey(s.AsteroidSize)) continue;
+                if (_settings != null) return _settings;
 
-                _settings.Add(s.AsteroidSize, s);
+                _settings = new Dictionary<AsteroidSize, AsteroidSettings>();
+
+                foreach (var s in settings)
+                {
+                    if (_settings.ContainsKey(s.AsteroidSize)) continue;
+
+                    _settings.Add(s.AsteroidSize, s);
+                }
+
+                return _settings;
             }
         }
     }

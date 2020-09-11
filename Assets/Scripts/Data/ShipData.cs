@@ -3,7 +3,7 @@
 namespace AsteroidsClone
 {
     [CreateAssetMenu(fileName = "ShipData")]
-    public sealed class ShipData : ViewData
+    public sealed class ShipData : Data
     {
         [Header("Settings")]
         [SerializeField] private PolygonShape shape;
