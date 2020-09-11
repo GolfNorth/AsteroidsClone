@@ -2,13 +2,13 @@
 
 namespace AsteroidsClone
 {
-    public class NotificationService
+    public sealed class NotificationService
     {
-        public Action<NotificationType> Notification;
+        public Action<NotificationType, object> Notification;
 
-        public void Notify(NotificationType notificationType)
+        public void Notify(NotificationType notificationType, object obj = null)
         {
-            Notification?.Invoke(notificationType);
+            Notification?.Invoke(notificationType, obj);
         }
     }
 }
