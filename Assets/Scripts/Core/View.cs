@@ -2,12 +2,12 @@
 
 namespace AsteroidsClone
 {
-    public abstract class View<T> : MonoBehaviour where T : Model
+    public abstract class View<TModel> : MonoBehaviour where TModel : Model
     {
-        private T _model;
+        private TModel _model;
 
         public ViewMode ViewMode { get; set; }
-        public T Model { 
+        public TModel Model { 
             protected get => _model; 
             set
             {

@@ -156,5 +156,14 @@ namespace AsteroidsClone
 
             return false;
         }
+
+        public void RotatePolygon(ref PolygonShape polygon, float angle)
+        {
+            for (var i = 0; i < polygon.Points.Length; i++)
+            {
+                polygon.Points[i].x = polygon.Points[i].x * Mathf.Cos(angle) - polygon.Points[i].y * Mathf.Sin(angle);
+                polygon.Points[i].y = polygon.Points[i].x * Mathf.Sin(angle) + polygon.Points[i].y * Mathf.Cos(angle);
+            }
+        }
     }
 }

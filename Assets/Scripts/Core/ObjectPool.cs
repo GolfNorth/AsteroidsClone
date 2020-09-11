@@ -1,12 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AsteroidsClone
 {
-    public sealed class ObjectPool<T> where T : IPoolable, new()
+    public sealed class ObjectPool<T> where T : IPoolable
     {
         private readonly Queue<T> _queue;
         private readonly HashSet<T> _pool;
         private int _count;
+
+        public Func<T> GetInstance;
 
         public int Count => _count;
 
@@ -25,7 +28,7 @@ namespace AsteroidsClone
 
             if (_queue.Count == 0)
             {
-                obj = new T();
+                obj = GetInstance();
                 _pool.Add(obj);
             }
             else

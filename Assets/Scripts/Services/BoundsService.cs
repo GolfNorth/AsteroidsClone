@@ -36,5 +36,22 @@ namespace AsteroidsClone
             _leftBound = bottomLeft.x;
             _rightBound = topRight.x;
         }
+
+        public void WrapCoordinates(Vector2 input, ref Vector2 output)
+        {
+            output = input;
+
+            if (input.x < _leftBound)
+                output.x = _rightBound;
+
+            if (input.x >= _rightBound)
+                output.x = _leftBound;
+
+            if (input.y < _bottomBound)
+                output.y = _topBound;
+
+            if (input.y >= _topBound)
+                output.y = _bottomBound;
+        }
     }
 }

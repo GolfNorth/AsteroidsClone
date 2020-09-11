@@ -9,7 +9,6 @@ namespace AsteroidsClone
         where TData : Data
     {
         private readonly TModel _model;
-        private readonly TData _data;
         private readonly TView _polygonView;
         private readonly TView _spriteView;
         private TView _view;
@@ -17,15 +16,16 @@ namespace AsteroidsClone
 
         public Actor(World world) : base(world)
         {
-            _data = (TData) World.Data[typeof(TData)];
-            _model = (TModel) Activator.CreateInstance(typeof(TModel), new object[] { _data });
+            var data = (TData)World.Data[typeof(TData)];
 
-            var spriteObject = GameObject.Instantiate(_data.SpritePrefab);
+            _model = (TModel)Activator.CreateInstance(typeof(TModel), new object[] { data, World });
+
+            var spriteObject = GameObject.Instantiate(data.SpritePrefab);
             _spriteView = spriteObject.AddComponent<TView>();
             _spriteView.ViewMode = ViewMode.Sprite;
             _spriteView.Model = _model;
 
-            var polygonObject = GameObject.Instantiate(_data.PolygonalPrefab);
+            var polygonObject = GameObject.Instantiate(data.PolygonalPrefab);
             _polygonView = polygonObject.AddComponent<TView>();
             _polygonView.ViewMode = ViewMode.Polygonal;
             _polygonView.Model = _model;

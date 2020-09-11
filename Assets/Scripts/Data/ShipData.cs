@@ -7,13 +7,11 @@ namespace AsteroidsClone
     {
         [Header("Settings")]
         [SerializeField] private PolygonShape shape;
-        [SerializeField] private float acceleration;
         [SerializeField] private float angularSpeed;
-        [SerializeField] private float maximumSpeed;
+        [SerializeField] private float speed;
 
         public PolygonShape Shape => shape;
-        public float Acceleration => acceleration;
         public float AngularSpeed => angularSpeed;
-        public float MaximumSpeed => maximumSpeed;
+        public float Speed => speed;
     }
 }
