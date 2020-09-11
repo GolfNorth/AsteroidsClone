@@ -2,7 +2,7 @@
 
 namespace AsteroidsClone
 {
-    public class BoundsService
+    public sealed class BoundsService
     {
         private Camera _camera;
         private float _topBound;
