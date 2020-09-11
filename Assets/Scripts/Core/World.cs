@@ -18,6 +18,7 @@ namespace AsteroidsClone
         private Laser _laser;
 
         private UpdateService _updateService;
+        private PhysicsService _physicsService;
         private BoundsService _boundsService;
         private NotificationService _notificationService;
 
@@ -34,6 +35,7 @@ namespace AsteroidsClone
         public Laser Laser { get => _laser; set => _laser = value; }
 
         public UpdateService UpdateService => _updateService;
+        public PhysicsService PhysicsService => _physicsService;
         public BoundsService BoundsService => _boundsService;
         public NotificationService NotificationService => _notificationService;
 
@@ -52,6 +54,7 @@ namespace AsteroidsClone
         private void InitializeServices()
         {
             _updateService = new UpdateService();
+            _physicsService = new PhysicsService();
             _boundsService = new BoundsService();
             _notificationService = new NotificationService();
         }
