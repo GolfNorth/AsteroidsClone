@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   polygonalPrefab: {fileID: 0}
   spritePrefab: {fileID: 0}
-  acceleration: 0
-  angularSpeed: 0
-  maximumSpeed: 0
+  body:
+  - {x: 0, y: -5}
+  - {x: -2.5, y: 2.5}
+  - {x: 2.5, y: 2.5}
+  acceleration: 2
+  angularSpeed: 0.5
+  maximumSpeed: 20

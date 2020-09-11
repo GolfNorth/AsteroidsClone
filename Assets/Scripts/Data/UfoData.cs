@@ -3,14 +3,13 @@
 namespace AsteroidsClone
 {
     [CreateAssetMenu(fileName = "UfoData")]
-    public sealed class UfoData : ScriptableObject
+    public sealed class UfoData : ViewData
     {
-        [SerializeField] private GameObject polygonalPrefab;
-        [SerializeField] private GameObject spritePrefab;
+        [Header("Settings")]
+        [SerializeField] private PolygonShape shape;
         [SerializeField] private float speed;
 
-        public GameObject PolygonalPrefab => polygonalPrefab;
-        public GameObject SpritePrefab => spritePrefab;
+        public PolygonShape Shape => shape;
         public float Speed => speed;
     }
 }

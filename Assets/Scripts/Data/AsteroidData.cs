@@ -4,15 +4,12 @@ using UnityEngine;
 namespace AsteroidsClone
 {
     [CreateAssetMenu(fileName = "AsteroidData")]
-    public sealed class AsteroidData : ScriptableObject
+    public sealed class AsteroidData : ViewData
     {
-        [SerializeField] private GameObject polygonalPrefab;
-        [SerializeField] private GameObject spritePrefab;
+        [Header("Settings")]
         [SerializeField] private AsteroidSettings[] settings;
         private Dictionary<AsteroidSize, AsteroidSettings> _settings;
 
-        public GameObject PolygonalPrefab => polygonalPrefab;
-        public GameObject SpritePrefab => spritePrefab;
         public Dictionary<AsteroidSize, AsteroidSettings> Settings => _settings;
 
         private void Awake()
