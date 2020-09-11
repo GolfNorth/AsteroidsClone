@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace AsteroidsClone
@@ -11,12 +12,6 @@ namespace AsteroidsClone
         [SerializeField] private BulletData bulletData;
         [SerializeField] private LaserData laserData;
 
-        private Ship _ship;
-        private List<Ufo> _ufos;
-        private List<Asteroid> _asteroids;
-        private List<Bullet> _bullets;
-        private Laser _laser;
-
         private UpdateService _updateService;
         private PhysicsService _physicsService;
         private BoundsService _boundsService;
@@ -28,11 +23,15 @@ namespace AsteroidsClone
         private UfosController _ufosController;
         private BulletsController _bulletsController;
 
-        public Ship Ship { get => _ship; set => _ship = value; }
-        public List<Ufo> Ufos { get => _ufos; set => _ufos = value; }
-        public List<Asteroid> Asteroids { get => _asteroids; set => _asteroids = value; }
-        public List<Bullet> Bullets { get => _bullets; set => _bullets = value; }
-        public Laser Laser { get => _laser; set => _laser = value; }
+        public ViewMode ViewMode { get; set; }
+
+        public Ship Ship { get; set; }
+        public List<Ufo> Ufos { get; set; }
+        public List<Asteroid> Asteroids { get; set; }
+        public List<Bullet> Bullets { get; set; }
+        public Laser Laser { get; set; }
+
+        public Dictionary<Type, Data> Data { get; private set; }
 
         public UpdateService UpdateService => _updateService;
         public PhysicsService PhysicsService => _physicsService;
@@ -47,8 +46,20 @@ namespace AsteroidsClone
 
         private void Awake()
         {
+            InitializeData();
             InitializeServices();
             InitializeControllers();
+        }
+
+        private void InitializeData()
+        {
+            Data = new Dictionary<Type, Data>();
+
+            Data.Add(typeof(ShipData), shipData);
+            Data.Add(typeof(UfoData), ufoData);
+            Data.Add(typeof(AsteroidData), asteroidData);
+            Data.Add(typeof(BulletData), bulletData);
+            Data.Add(typeof(LaserData), laserData);
         }
 
         private void InitializeServices()
