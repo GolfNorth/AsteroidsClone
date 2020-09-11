@@ -1,11 +1,12 @@
 ﻿using System;
+using UnityEngine;
 
 namespace AsteroidsClone
 {
     [Serializable]
     public struct CircleShape
     {
-        public PointShape Center;
+        public Vector2 Center;
         public float Radius;
     }
 }

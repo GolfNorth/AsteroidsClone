@@ -1,10 +1,11 @@
 ﻿using System;
+using UnityEngine;
 
 namespace AsteroidsClone
 {
     [Serializable]
     public struct PolygonShape
     {
-        public PointShape[] Points;
+        public Vector2[] Points;
     }
 }
