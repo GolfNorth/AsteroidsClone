@@ -4,27 +4,60 @@ namespace AsteroidsClone
 {
     public sealed class AsteroidModel : Model
     {
-        private readonly AsteroidData _data;
+        private readonly AsteroidData Data;
         private AsteroidSize _size;
-        private float _speed;
-        private float _direction;
 
-        public AsteroidModel(AsteroidData data, AsteroidSize size)
+        public AsteroidModel(AsteroidData data)
         {
-            _data = data;
-
-            SwitchSize(size);
+            Data = data;
         }
 
-        public AsteroidSize Size { get => _size; set => _size = value; }
-        public float Speed { get => _speed; set => _speed = value; }
-        public float Direction { get => _direction; set => _direction = value; }
+        public AsteroidSize Size {
+            get => _size;
+            set
+            {
+                if (_size == value) return;
 
-        public void SwitchSize(AsteroidSize newSize)
+                _size = value;
+                Radius = Data.Settings[value].Radius;
+                Shape = new CircleShape { Radius = Radius };
+            }
+        }
+        public CircleShape Shape { get; set; }
+        public float Speed { get; set; }
+        public float Radius { get; set; }
+
+        public void Randomize(AsteroidSize size = AsteroidSize.None, float minAngle = 0, float maxAngle = 360)
         {
-            Size = newSize;
-            Direction = Random.Range(0, 360);
-            Speed = Random.Range(_data.Settings[newSize].MinSpeed, _data.Settings[newSize].MaxSpeed);
+            Debug.Log(1);
+
+            if (size == AsteroidSize.None)
+            {
+                size = (AsteroidSize) Random.Range(1, System.Enum.GetValues(typeof(AsteroidSize)).Length);
+            }
+
+            Angle = Random.Range(minAngle, maxAngle);
+            Speed = Random.Range(Data.Settings[size].MinSpeed, Data.Settings[size].MaxSpeed);
+
+            UpdateVelocity();
+        }
+
+        public void UpdateVelocity()
+        {
+            var velocity = new Vector2
+            {
+                x = Mathf.Cos(Angle * Mathf.Deg2Rad),
+                y = Mathf.Sin(Angle * Mathf.Deg2Rad)
+            };
+
+            Velocity = velocity.normalized * Speed;
+        }
+
+        public void Move()
+        {
+            var position = Vector2.MoveTowards(Position, Position + Velocity * 10, Time.fixedDeltaTime * Speed);
+
+            Position = position;
         }
     }
 }
