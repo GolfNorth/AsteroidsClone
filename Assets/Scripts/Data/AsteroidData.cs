@@ -7,8 +7,11 @@ namespace AsteroidsClone
     public sealed class AsteroidData : Data
     {
         [Header("Settings")]
+        [SerializeField] private float spawnDelay;
         [SerializeField] private AsteroidSettings[] settings;
         private Dictionary<AsteroidSize, AsteroidSettings> _settings;
+
+        public float SpawnDelay => spawnDelay;
 
         public Dictionary<AsteroidSize, AsteroidSettings> Settings
         {

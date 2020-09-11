@@ -33,9 +33,9 @@ namespace AsteroidsClone
             ViewMode = World.ViewMode;
         }
 
-        public TModel Model => _model;
+        protected TModel Model => _model;
 
-        public TView View => _view;
+        protected TView View => _view;
 
         public ViewMode ViewMode
         {
@@ -54,6 +54,18 @@ namespace AsteroidsClone
         {
             get => _model.IsActive;
             set => _model.IsActive = value;
+        }
+
+        public Vector2 Position
+        {
+            get => _model.Position;
+            set => _model.Position = value;
+        }
+
+        public float Angle
+        {
+            get => _model.Angle;
+            set => _model.Angle = value;
         }
     }
 }

@@ -37,21 +37,49 @@ namespace AsteroidsClone
             _rightBound = topRight.x;
         }
 
-        public void WrapCoordinates(Vector2 input, ref Vector2 output)
+        public void WrapCoordinates(Vector2 input, ref Vector2 output, float offset = 0)
         {
             output = input;
 
-            if (input.x < _leftBound)
-                output.x = _rightBound;
+            if (input.x < _leftBound - offset)
+                output.x = _rightBound + offset;
 
-            if (input.x >= _rightBound)
-                output.x = _leftBound;
+            if (input.x >= _rightBound + offset)
+                output.x = _leftBound - offset;
 
-            if (input.y < _bottomBound)
-                output.y = _topBound;
+            if (input.y < _bottomBound - offset)
+                output.y = _topBound + offset;
 
-            if (input.y >= _topBound)
-                output.y = _bottomBound;
+            if (input.y >= _topBound + offset)
+                output.y = _bottomBound - offset;
+        }
+
+        public Vector2 RandomizePosition(float offset = 0)
+        {
+            var position = new Vector2();
+            var bound = (BoundSide)Random.Range(0, System.Enum.GetValues(typeof(BoundSide)).Length);
+
+            switch (bound)
+            {
+                case BoundSide.Top:
+                    position.x = Random.Range(LeftBound, RightBound);
+                    position.y = TopBound + offset;
+                    break;
+                case BoundSide.Bottom:
+                    position.x = Random.Range(LeftBound, RightBound);
+                    position.y = BottomBound - offset;
+                    break;
+                case BoundSide.Left:
+                    position.x = LeftBound - offset;
+                    position.y = Random.Range(BottomBound, TopBound);
+                    break;
+                case BoundSide.Right:
+                    position.x = RightBound + offset;
+                    position.y = Random.Range(BottomBound, TopBound);
+                    break;
+            }
+
+           return position;
         }
     }
 }

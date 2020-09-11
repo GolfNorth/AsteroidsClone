@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 namespace AsteroidsClone
 {
@@ -14,7 +15,7 @@ namespace AsteroidsClone
 
         public PolygonShape Shape { get; set; }
 
-        public void Move(float translation, float rotation, BoundsService bounds)
+        public void Move(float translation, float rotation)
         {
             if (rotation != 0)
             {
@@ -31,7 +32,7 @@ namespace AsteroidsClone
 
             var position = Position + Velocity * Time.fixedDeltaTime;
 
-            bounds.WrapCoordinates(position, ref position);
+            World.BoundsService.WrapCoordinates(position, ref position);
 
             Position = position;
         }

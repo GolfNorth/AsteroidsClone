@@ -1,45 +1,54 @@
-﻿using UnityEngine;
-
-namespace AsteroidsClone
+﻿namespace AsteroidsClone
 {
-    public sealed class Asteroid : Actor<AsteroidModel, AsteroidView, AsteroidData>, IHit, IPoolable, IFixedTickable
+    public sealed class Asteroid : Actor<AsteroidModel, AsteroidView, AsteroidData>, IDestroyable, IPoolable, IFixedTickable
     {
         public Asteroid(World world) : base(world)
         {
         }
 
-        public bool IsActive { get; set; }
+        public AsteroidSize Size
+        {
+            get => Model.Size;
+            set => Model.Size = value;
+        }
+
         public CircleShape Shape => Model.Shape;
 
         public void Disable()
         {
-            View.gameObject.SetActive(false);
+            Model.IsActive = false;
         }
 
         public void Enable()
         {
-            Model.Randomize();
-            View.gameObject.SetActive(true);
+            Model.IsActive = true;
         }
 
         public void FixedTick()
         {
-            if (!IsActive) return;
+            if (!IsActive || Model.Size == AsteroidSize.None) return;
 
             Model.Move();
         }
 
-        public void Hit()
+        public void Destroy()
         {
-            switch (Model.Size)
-            {
-                case AsteroidSize.Large:
-                    break;
-                case AsteroidSize.Middle:
-                    break;
-                case AsteroidSize.Small:
-                    break;
-            }
+            World.AsteroidsController.DestroyAsteroid(this);
+        }
+
+        public void RandomizeAngleAndSpeed()
+        {
+            Model.RandomizeAngleAndSpeed();
+        }
+
+        public void RandomizePosition()
+        {
+            Model.RandomizePosition();
+        }
+
+        public void RandomizeSize()
+        {
+            Model.RandomizeSize();
         }
     }
 }

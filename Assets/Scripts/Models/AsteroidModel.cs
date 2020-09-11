@@ -31,20 +31,31 @@ namespace AsteroidsClone
 
         public float Speed { get; set; }
 
-        public void Randomize(AsteroidSize size = AsteroidSize.None, float minAngle = 0, float maxAngle = 360)
+        public void RandomizeAngleAndSpeed()
         {
-            if (size == AsteroidSize.None)
-                size = (AsteroidSize) Random.Range(1, System.Enum.GetValues(typeof(AsteroidSize)).Length);
-
-            Angle = Random.Range(minAngle, maxAngle);
-            Speed = Random.Range(Data.Settings[size].MinSpeed, Data.Settings[size].MaxSpeed);
+            Angle = Random.Range(0, 360);
+            Speed = Random.Range(Data.Settings[Size].MinSpeed, Data.Settings[Size].MaxSpeed);
 
             Velocity = Direction * Speed;
         }
 
+        public void RandomizePosition()
+        {
+            Position = World.BoundsService.RandomizePosition(Radius);
+        }
+
+        public void RandomizeSize()
+        {
+            Size = (AsteroidSize)Random.Range(1, System.Enum.GetValues(typeof(AsteroidSize)).Length);
+        }
+
         public void Move()
         {
-            Position += Velocity * Time.fixedDeltaTime;
+            var position = Position + Velocity * Time.fixedDeltaTime;
+
+            World.BoundsService.WrapCoordinates(position, ref position, Data.Settings[Size].Radius);
+
+            Position = position;
         }
     }
 }

@@ -22,7 +22,7 @@ namespace AsteroidsClone
 
         public void FixedTick()
         {
-            Model.Move(inputService.Translation, inputService.Rotation, World.BoundsService);
+            Model.Move(inputService.Translation, inputService.Rotation);
         }
 
         public void Fire()

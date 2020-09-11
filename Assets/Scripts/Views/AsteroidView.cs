@@ -6,6 +6,6 @@ namespace AsteroidsClone
 {
     public sealed class AsteroidView : View<AsteroidModel>
     {
-
+        
     }
 }
