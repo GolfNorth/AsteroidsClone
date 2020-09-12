@@ -1,6 +1,6 @@
 ﻿namespace AsteroidsClone
 {
-    public class CollisionController : Controller, IFixedTickable
+    public sealed class CollisionController : Controller, IFixedTickable
     {
         #region Constructor
 

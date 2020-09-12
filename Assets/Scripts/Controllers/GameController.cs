@@ -1,6 +1,6 @@
 ﻿namespace AsteroidsClone
 {
-    public class GameController : Controller, ITickable
+    public sealed class GameController : Controller, ITickable
     {
         #region Constructor
 

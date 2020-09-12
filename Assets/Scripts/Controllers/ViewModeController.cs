@@ -1,6 +1,6 @@
 ﻿namespace AsteroidsClone
 {
-    public class ViewModeController : Controller, ITickable
+    public sealed class ViewModeController : Controller, ITickable
     {
         #region Fields
 

@@ -2,7 +2,7 @@
 
 namespace AsteroidsClone
 {
-    public class UfosController : Controller, ITickable, IFixedTickable
+    public sealed class UfosController : Controller, ITickable, IFixedTickable
     {
         #region Constructor
 

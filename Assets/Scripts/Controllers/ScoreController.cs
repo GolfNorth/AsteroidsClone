@@ -1,6 +1,6 @@
 ﻿namespace AsteroidsClone
 {
-    public class ScoreController : Controller
+    public sealed class ScoreController : Controller
     {
         #region Constructor
 
