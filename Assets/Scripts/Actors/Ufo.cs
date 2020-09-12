@@ -10,16 +10,11 @@
         {
         }
 
-        public void Disable()
+        public override void Enable()
         {
-            Model.IsActive = false;
-        }
-
-        public void Enable()
-        {
-            Model.IsActive = true;
-
             Revive();
+
+            base.Enable();
         }
 
         public void Tick()

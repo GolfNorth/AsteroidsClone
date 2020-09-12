@@ -1,6 +1,6 @@
 ﻿namespace AsteroidsClone
 {
-    public sealed class Asteroid : Actor<AsteroidModel, AsteroidView, AsteroidData>, IDestroyable, IPoolable, ITickable, IFixedTickable
+    public sealed class Asteroid : Actor<AsteroidModel, AsteroidView, AsteroidData>, IDestroyable, ITickable, IFixedTickable
     {
         public AsteroidSize Size
         {
@@ -16,16 +16,11 @@
         {
         }
 
-        public void Disable()
+        public override void Enable()
         {
-            Model.IsActive = false;
-        }
-
-        public void Enable()
-        {
-            Model.IsActive = true;
-
             Revive();
+
+            base.Enable();
         }
 
         public void Tick()

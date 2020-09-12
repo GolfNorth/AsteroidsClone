@@ -5,7 +5,7 @@
         public GameController(World world) : base(world)
         {
             var ship = new Ship(World);
-            ship.Revive();
+            ship.Enable();
             World.Ship = ship;
 
             World.UpdateService.Add(ship);

@@ -27,6 +27,8 @@ namespace AsteroidsClone
         {
             _data = data;
 
+            Velocity = Direction * _data.Speed;
+
             AngleChanged += (_) => Velocity = Direction * _data.Speed;
         }
 

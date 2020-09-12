@@ -166,15 +166,16 @@ namespace AsteroidsClone
         {
             var cos = Mathf.Cos(deltaAngle * Mathf.Deg2Rad);
             var sin = Mathf.Sin(deltaAngle * Mathf.Deg2Rad);
+
             var xa = line.PointA.x - line.Center.x;
             var ya = line.PointA.y - line.Center.y;
             var xb = line.PointB.x - line.Center.x;
             var yb = line.PointB.y - line.Center.y;
 
             line.PointA.x = line.Center.x + xa * cos - ya * sin;
-            line.PointA.y = line.Center.x + xa * sin + ya * cos;
+            line.PointA.y = line.Center.y + xa * sin + ya * cos;
             line.PointB.x = line.Center.x + xb * cos - yb * sin;
-            line.PointB.y = line.Center.x + xb * sin + yb * cos;
+            line.PointB.y = line.Center.y + xb * sin + yb * cos;
         }
 
         public void TranslateLine(ref LineShape line, Vector2 deltaPosition)

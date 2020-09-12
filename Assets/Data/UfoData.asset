@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   polygonalPrefab: {fileID: 1695236836335579771, guid: 067906214bd26384ab4b1a7d720e2980, type: 3}
   spritePrefab: {fileID: 1695236836335579771, guid: 067906214bd26384ab4b1a7d720e2980, type: 3}
-  spawnDelay: 5
+  spawnDelay: 6
   shape:
     Points:
     - {x: 1, y: 0}
@@ -22,4 +22,4 @@ MonoBehaviour:
     - {x: -1, y: 0}
     - {x: 0, y: 0.5}
     Center: {x: 0, y: 0}
-  speed: 2.5
+  speed: 4

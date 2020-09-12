@@ -1,17 +1,12 @@
 ﻿namespace AsteroidsClone
 {
-    public sealed class Bullet : Actor<BulletModel, BulletView, BulletData>, IPoolable, IFixedTickable
+    public sealed class Bullet : Actor<BulletModel, BulletView, BulletData>, IFixedTickable
     {
         public Bullet(World world) : base(world)
         {
         }
 
-        public void Disable()
-        {
-            Model.IsActive = false;
-        }
-
-        public void Enable()
+        public override void Enable()
         {
             Model.IsActive = true;
 

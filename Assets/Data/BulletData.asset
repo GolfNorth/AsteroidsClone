@@ -15,4 +15,4 @@ MonoBehaviour:
   polygonalPrefab: {fileID: 1465353027851705698, guid: e08e15c4d3d7558459b660b45cd14c58, type: 3}
   spritePrefab: {fileID: 1465353027851705698, guid: e08e15c4d3d7558459b660b45cd14c58, type: 3}
   speed: 12
-  rapidity: 0.2
+  rapidity: 0.25

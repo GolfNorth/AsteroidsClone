@@ -20,7 +20,7 @@ MonoBehaviour:
     - {x: -0.5, y: -0.25}
     - {x: -0.5, y: 0.25}
     Center: {x: 0, y: 0}
-  angularSpeed: 180
+  angularSpeed: 270
   stopSpeed: 0.6
   speed: 8
   inertia: 0.6

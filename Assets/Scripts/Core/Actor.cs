@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace AsteroidsClone
 {
-    public abstract class Actor<TModel, TView, TData> : Resident, IActivatable
+    public abstract class Actor<TModel, TView, TData> : Resident, IPoolable, IActivatable
         where TModel : Model
         where TView : View<TModel>
         where TData : Data
@@ -39,6 +39,16 @@ namespace AsteroidsClone
             view.Model = Model;
 
             return view;
+        }
+
+        public virtual void Enable()
+        {
+            Model.IsActive = true;
+        }
+
+        public virtual void Disable()
+        {
+            Model.IsActive = false;
         }
 
         protected TModel Model => _model;

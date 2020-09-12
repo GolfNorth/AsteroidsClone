@@ -42,12 +42,18 @@
         {
             if (!IsActive || IsDestroyed) return;
 
-            World.FireController.Fire(Model.Position, Model.Angle);
+            World.FireController.AltFire(Model.Position, Model.Angle);
+        }
+
+        public override void Enable()
+        {
+            Revive();
+
+            base.Enable();
         }
 
         public void Revive()
         {
-            Model.IsActive = true;
             Model.Revive();
 
             World.NotificationService.Notify(NotificationType.ShipSpawned, this);
