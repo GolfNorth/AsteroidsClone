@@ -89,7 +89,7 @@ namespace AsteroidsClone
 
         public void RandomizeSize()
         {
-            Size = (AsteroidSize) Random.Range(1, Enum.GetValues(typeof(AsteroidSize)).Length);
+            Size = (AsteroidSize) Random.Range(1, Enum.GetValues(typeof(AsteroidSize)).Length - 1);
         }
 
         public void Move()

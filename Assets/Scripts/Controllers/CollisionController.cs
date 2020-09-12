@@ -33,8 +33,9 @@
                         World.PhysicsService.PointAndCircleContact(bullet.Position, asteroid.Shape))
                     {
                         asteroid.Destroy();
-
                         World.FireController.DestroyBullet(bullet);
+                        
+                        break;
                     }
                 }
 
@@ -48,8 +49,9 @@
                         World.PhysicsService.PolygonAndPointContact(ufo.Shape, bullet.Position))
                     {
                         ufo.Destroy();
-
                         World.FireController.DestroyBullet(bullet);
+
+                        break;
                     }
                 }
             }
@@ -90,6 +92,8 @@
                 {
                     asteroid.Destroy();
                     ship.Destroy();
+                        
+                    break;
                 }
             }
 
@@ -104,6 +108,8 @@
                     {
                         ufo.Destroy();
                         ship.Destroy();
+                        
+                        break;
                     }
                 }
             }

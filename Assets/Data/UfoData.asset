@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c462ee8f055959449bc5eb8a834e73a, type: 3}
   m_Name: UfoData
   m_EditorClassIdentifier: 
-  polygonalPrefab: {fileID: 1695236836335579771, guid: 067906214bd26384ab4b1a7d720e2980, type: 3}
-  spritePrefab: {fileID: 1465353027851705698, guid: e08e15c4d3d7558459b660b45cd14c58, type: 3}
+  polygonalPrefab: {fileID: 710697431307414056, guid: 9beca03de8b69114a8eaf70f28a39f28, type: 3}
+  spritePrefab: {fileID: 710697431307414056, guid: a25a8d4d4edb4fc43bdfc93bfda28dbe, type: 3}
   spawnDelay: 4
   shape:
     Points:

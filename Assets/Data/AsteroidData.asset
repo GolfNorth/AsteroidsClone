@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff19c813976270d4084a39193dadac49, type: 3}
   m_Name: AsteroidData
   m_EditorClassIdentifier: 
-  polygonalPrefab: {fileID: 1465353027851705698, guid: e08e15c4d3d7558459b660b45cd14c58, type: 3}
-  spritePrefab: {fileID: 1695236836335579771, guid: 067906214bd26384ab4b1a7d720e2980, type: 3}
+  polygonalPrefab: {fileID: 6202715627726869972, guid: 6b0f46fe7a017bd46be4c0f70a8e87bc, type: 3}
+  spritePrefab: {fileID: 6202715627726869972, guid: 854fff24bc86082409b6446df396be85, type: 3}
   spawnDelay: 1.5
   settings:
   - AsteroidSize: 1
