@@ -1,6 +1,6 @@
 ﻿namespace AsteroidsClone
 {
-    public class ViewModeController : Resident, ITickable
+    public class ViewModeController : Controller, ITickable
     {
         private ViewMode _viewMode;
 

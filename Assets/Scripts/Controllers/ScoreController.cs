@@ -1,6 +1,6 @@
 ﻿namespace AsteroidsClone
 {
-    public class ScoreController : Resident
+    public class ScoreController : Controller
     {
         private int _score;
 

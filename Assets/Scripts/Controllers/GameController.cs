@@ -1,14 +1,30 @@
 ﻿namespace AsteroidsClone
 {
-    public class GameController : Resident
+    public class GameController : Resident, ITickable
     {
         public GameController(World world) : base(world)
         {
-            var ship = new Ship(World);
-            ship.Enable();
-            World.Ship = ship;
+            World.Ship = new Ship(World);
+            World.UpdateService.Add(this);
+            World.UpdateService.Add(World.Ship);
+        }
 
-            World.UpdateService.Add(ship);
+        public void Tick()
+        {
+            if (!World.Ship.IsActive && !World.Ship.IsDestroyed)
+                World.Ship.Enable();
+
+            if (World.Ship.IsDestroyed && World.InputService.Fire)
+                RestartGame();
+
+        }
+
+        public void RestartGame()
+        {
+            World.Ship.Revive();
+            World.FireController.RestartGame();
+            World.UfosController.RestartGame();
+            World.AsteroidsController.RestartGame();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace AsteroidsClone
 {
-    public class CollisionController : Resident, IFixedTickable
+    public class CollisionController : Controller, IFixedTickable
     {
         public CollisionController(World world) : base(world)
         {

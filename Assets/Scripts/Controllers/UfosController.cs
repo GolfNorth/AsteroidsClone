@@ -2,7 +2,7 @@
 
 namespace AsteroidsClone
 {
-    public class UfosController : Resident, ITickable, IFixedTickable
+    public class UfosController : Controller, ITickable, IFixedTickable
     {
         private readonly ObjectPool<Ufo> _ufosPool;
         private float _spawnDelay;
@@ -19,6 +19,16 @@ namespace AsteroidsClone
 
             World.UpdateService.Add(this);
             World.Ufos = _ufosPool.All;
+        }
+
+        public override void RestartGame()
+        {
+            _spawnTimer = 0;
+
+            for (var i = 0; i < World.Ufos.Count; i++)
+            {
+                _ufosPool.Release(World.Ufos[i]);
+            }
         }
 
         public void Tick()

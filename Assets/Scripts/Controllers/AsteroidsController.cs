@@ -2,7 +2,7 @@
 
 namespace AsteroidsClone
 {
-    public class AsteroidsController : Resident, ITickable, IFixedTickable
+    public class AsteroidsController : Controller, ITickable, IFixedTickable
     {
         private readonly ObjectPool<Asteroid> _asteroidsPool;
         private float _spawnDelay;
@@ -22,6 +22,16 @@ namespace AsteroidsClone
             World.UpdateService.Add(this);
             World.Asteroids = _asteroidsPool.All;
             World.NotificationService.Notification += SpawnSmaller;
+        }
+
+        public override void RestartGame()
+        {
+            _spawnTimer = 0;
+
+            for (var i = 0; i < World.Asteroids.Count; i++)
+            {
+                _asteroidsPool.Release(World.Asteroids[i]);
+            }
         }
 
         public void Tick()

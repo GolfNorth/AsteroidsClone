@@ -2,10 +2,9 @@
 
 namespace AsteroidsClone
 {
-    public class FireController : Resident, ITickable, IFixedTickable
+    public class FireController : Controller, ITickable, IFixedTickable
     {
         private readonly ObjectPool<Bullet> _bulletsPool;
-        private readonly Laser _laser;
         private float _bulletRapidity;
         private float _bulletDelay;
         private float _laserDuration;
@@ -26,11 +25,22 @@ namespace AsteroidsClone
                 GetInstance = () => { return new Bullet(World); }
             };
 
-            _laser = new Laser(world);
-
+            World.Laser = new Laser(world);
             World.Bullets = _bulletsPool.All;
-            World.Laser = _laser;
             World.UpdateService.Add(this);
+        }
+
+        public override void RestartGame()
+        {
+            _bulletDelay = 0;
+            _laserDelay = 0;
+
+            World.Laser.Disable();
+
+            for (var i = 0; i < World.Bullets.Count; i++)
+            {
+                _bulletsPool.Release(World.Bullets[i]);
+            }
         }
 
         public void Tick()
@@ -38,9 +48,9 @@ namespace AsteroidsClone
             _bulletDelay += Time.deltaTime;
             _laserDelay += Time.deltaTime;
 
-            if (_laser.IsActive && _laserDelay > _laserDuration)
+            if (World.Laser.IsActive && World.Ship.IsDestroyed || World.Laser.IsActive && _laserDelay > _laserDuration)
             {
-                _laser.Disable();
+                World.Laser.Disable();
 
                 _laserDelay = 0;
             } 
@@ -55,12 +65,12 @@ namespace AsteroidsClone
                 World.Bullets[i].FixedTick();
             }
 
-            _laser.FixedTick();
+            World.Laser.FixedTick();
         }
 
         public void Fire(Vector2 position, float angle)
         {
-            if (_laser.IsActive || _bulletDelay < _bulletRapidity) return;
+            if (World.Laser.IsActive || _bulletDelay < _bulletRapidity) return;
 
             var bullet = _bulletsPool.Acquire();
 
@@ -72,11 +82,11 @@ namespace AsteroidsClone
 
         public void AltFire(Vector2 position, float angle)
         {
-            if (_laser.IsActive || _laserDelay < _laserCooldown) return;
+            if (World.Laser.IsActive || _laserDelay < _laserCooldown) return;
 
-            _laser.Position = position;
-            _laser.Angle = angle;
-            _laser.Enable();
+            World.Laser.Position = position;
+            World.Laser.Angle = angle;
+            World.Laser.Enable();
 
             _laserDelay = 0;
         }
