@@ -1,24 +1,20 @@
 ﻿using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace AsteroidsClone
 {
-    public abstract class Actor<TModel, TView, TData> : Resident, IPoolable, IActivatable
+    public abstract class Actor<TModel, TView, TData> : Resident, IPoolable
         where TModel : Model
         where TView : View<TModel>
         where TData : Data
     {
-        private readonly TModel _model;
-        private readonly TData _data;
-        private readonly TView _polygonView;
-        private readonly TView _spriteView;
-        private TView _view;
-        private ViewMode _viewMode;
+        #region Constructor
 
-        public Actor(World world) : base(world)
+        protected Actor(World world) : base(world)
         {
-            _data = (TData)World.Data[typeof(TData)];
-            _model = (TModel)Activator.CreateInstance(typeof(TModel), new object[] { Data, World });
+            Data = (TData) World.Data[typeof(TData)];
+            Model = (TModel) Activator.CreateInstance(typeof(TModel), Data, World);
 
             _spriteView = CreateView(ViewMode.Sprite);
             _polygonView = CreateView(ViewMode.Polygonal);
@@ -26,19 +22,66 @@ namespace AsteroidsClone
             ViewMode = World.ViewMode;
         }
 
+        #endregion
+
+        #region Methods
+
         private TView CreateView(ViewMode viewMode)
         {
             var gameObject = viewMode == ViewMode.Polygonal
-                ? GameObject.Instantiate(Data.SpritePrefab)
-                : GameObject.Instantiate(Data.PolygonalPrefab);
+                ? Object.Instantiate(Data.SpritePrefab)
+                : Object.Instantiate(Data.PolygonalPrefab);
 
-            gameObject.name = this.GetType().Name;
+            gameObject.name = GetType().Name;
 
             var view = gameObject.AddComponent<TView>();
             view.ViewMode = viewMode;
             view.Model = Model;
 
             return view;
+        }
+
+        #endregion
+
+        #region Fields
+
+        private readonly TView _polygonView;
+        private readonly TView _spriteView;
+        private ViewMode _viewMode;
+
+        #endregion
+
+        #region Properties
+
+        protected TModel Model { get; }
+
+        protected TData Data { get; }
+
+        protected TView View { get; private set; }
+
+        public ViewMode ViewMode
+        {
+            get => _viewMode;
+            set
+            {
+                if (_viewMode == value) return;
+
+                _viewMode = value;
+                Model.ViewMode = ViewMode;
+                View = value == ViewMode.Polygonal ? _polygonView : _spriteView;
+            }
+        }
+
+        public Vector2 Position
+        {
+            get => Model.Position;
+            set => Model.Position = value;
+        }
+
+        public float Angle
+        {
+            get => Model.Angle;
+            set => Model.Angle = value;
         }
 
         public virtual void Enable()
@@ -51,41 +94,12 @@ namespace AsteroidsClone
             Model.IsActive = false;
         }
 
-        protected TModel Model => _model;
-
-        protected TData Data => _data;
-
-        protected TView View => _view;
-
-        public ViewMode ViewMode
-        {
-            get => _viewMode;
-            set
-            {
-                if (_viewMode == value) return;
-
-                _viewMode = value;
-                _model.ViewMode = ViewMode;
-                _view = value == ViewMode.Polygonal ? _polygonView : _spriteView;
-            }
-        }
-
         public bool IsActive
         {
-            get => _model.IsActive;
-            set => _model.IsActive = value;
+            get => Model.IsActive;
+            set => Model.IsActive = value;
         }
 
-        public Vector2 Position
-        {
-            get => _model.Position;
-            set => _model.Position = value;
-        }
-
-        public float Angle
-        {
-            get => _model.Angle;
-            set => _model.Angle = value;
-        }
+        #endregion
     }
 }

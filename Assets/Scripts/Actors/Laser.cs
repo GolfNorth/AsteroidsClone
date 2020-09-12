@@ -2,22 +2,32 @@
 {
     public sealed class Laser : Actor<LaserModel, LaserView, LaserData>, IFixedTickable
     {
-        public LineShape Shape => Model.Shape;
+        #region Constructor
 
         public Laser(World world) : base(world)
         {
         }
 
+        #endregion
+
+        #region Properties
+
+        public LineShape Shape => Model.Shape;
+
+        #endregion
+
+        #region Methods
+
         public override void Enable()
         {
-            base.Enable();
+            Model.IsActive = true;
 
             World.NotificationService.Notify(NotificationType.LaserActivated, this);
         }
 
         public override void Disable()
         {
-            base.Disable();
+            Model.IsActive = false;
 
             World.NotificationService.Notify(NotificationType.LaserDeactivated, this);
         }
@@ -28,5 +38,7 @@
 
             Model.Move();
         }
+
+        #endregion
     }
 }

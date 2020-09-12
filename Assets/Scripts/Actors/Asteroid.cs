@@ -1,7 +1,18 @@
 ﻿namespace AsteroidsClone
 {
-    public sealed class Asteroid : Actor<AsteroidModel, AsteroidView, AsteroidData>, IDestroyable, ITickable, IFixedTickable
+    public sealed class Asteroid : Actor<AsteroidModel, AsteroidView, AsteroidData>, IDestroyable, ITickable,
+        IFixedTickable
     {
+        #region Constructor
+
+        public Asteroid(World world) : base(world)
+        {
+        }
+
+        #endregion
+
+        #region Properties
+
         public AsteroidSize Size
         {
             get => Model.Size;
@@ -12,15 +23,15 @@
 
         public bool IsDestroyed => Model.IsDestroyed;
 
-        public Asteroid(World world) : base(world)
-        {
-        }
+        #endregion
+
+        #region Methods
 
         public override void Enable()
         {
             Revive();
 
-            base.Enable();
+            Model.IsActive = true;
         }
 
         public void Tick()
@@ -64,5 +75,7 @@
         {
             Model.RandomizeSize();
         }
+
+        #endregion
     }
 }

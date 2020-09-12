@@ -5,22 +5,34 @@ namespace AsteroidsClone
 {
     public sealed class ObjectPool<T> where T : IPoolable
     {
-        private readonly Queue<T> _queue;
-        private readonly List<T> _pool;
-        private int _count;
-
-        public Func<T> GetInstance;
-
-        public int Count => _count;
-
-        public List<T> All => _pool;
+        #region Constructor
 
         public ObjectPool()
         {
             _queue = new Queue<T>();
-            _pool = new List<T>();
-            _count = 0;
+            All = new List<T>();
+            Count = 0;
         }
+
+        #endregion
+
+        #region Fields
+
+        private readonly Queue<T> _queue;
+
+        public Func<T> GetInstance;
+
+        #endregion
+
+        #region Properties
+
+        public int Count { get; private set; }
+
+        public List<T> All { get; }
+
+        #endregion
+
+        #region Methods
 
         public T Acquire()
         {
@@ -29,7 +41,7 @@ namespace AsteroidsClone
             if (_queue.Count == 0)
             {
                 obj = GetInstance();
-                _pool.Add(obj);
+                All.Add(obj);
             }
             else
             {
@@ -39,7 +51,7 @@ namespace AsteroidsClone
             obj.Enable();
             obj.IsActive = true;
 
-            _count++;
+            Count++;
 
             return obj;
         }
@@ -50,7 +62,9 @@ namespace AsteroidsClone
             obj.IsActive = false;
             _queue.Enqueue(obj);
 
-            _count--;
+            Count--;
         }
+
+        #endregion
     }
 }

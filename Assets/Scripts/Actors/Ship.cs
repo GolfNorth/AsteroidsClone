@@ -2,13 +2,23 @@
 {
     public sealed class Ship : Actor<ShipModel, ShipView, ShipData>, IDestroyable, ITickable, IFixedTickable
     {
-        public PolygonShape Shape => Model.Shape;
-
-        public bool IsDestroyed => Model.IsDestroyed;
+        #region Constructor
 
         public Ship(World world) : base(world)
         {
         }
+
+        #endregion
+
+        #region Properties
+
+        public PolygonShape Shape => Model.Shape;
+
+        public bool IsDestroyed => Model.IsDestroyed;
+
+        #endregion
+
+        #region Properties
 
         public void Tick()
         {
@@ -31,14 +41,14 @@
             Model.Move(World.InputService.Translation, World.InputService.Rotation);
         }
 
-        public void Fire()
+        private void Fire()
         {
             if (!IsActive || IsDestroyed) return;
 
             World.FireController.Fire(Model.Position, Model.Angle);
         }
 
-        public void AltFire()
+        private void AltFire()
         {
             if (!IsActive || IsDestroyed) return;
 
@@ -49,7 +59,7 @@
         {
             Revive();
 
-            base.Enable();
+            Model.IsActive = true;
         }
 
         public void Revive()
@@ -65,5 +75,7 @@
 
             World.NotificationService.Notify(NotificationType.ShipDestroyed, this);
         }
+
+        #endregion
     }
 }

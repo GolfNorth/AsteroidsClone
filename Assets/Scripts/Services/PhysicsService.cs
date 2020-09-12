@@ -4,11 +4,13 @@ namespace AsteroidsClone
 {
     public sealed class PhysicsService
     {
+        #region Methods
+
         public bool PointAndCircleContact(Vector2 point, CircleShape circle)
         {
             var distX = point.x - circle.Center.x;
             var distY = point.y - circle.Center.y;
-            var distance = Mathf.Sqrt((distX * distX) + (distY * distY));
+            var distance = Mathf.Sqrt(distX * distX + distY * distY);
 
             return distance <= circle.Radius;
         }
@@ -16,25 +18,25 @@ namespace AsteroidsClone
         public bool LineAndLineContact(LineShape lineA, LineShape lineB)
         {
             var uA = ((lineB.PointB.x - lineB.PointA.x) * (lineA.PointA.y - lineB.PointA.y)
-                - (lineB.PointB.y - lineB.PointA.y) * (lineA.PointA.x - lineB.PointA.x))
-                / ((lineB.PointB.y - lineB.PointA.y) * (lineA.PointB.x - lineA.PointA.x)
-                - (lineB.PointB.x - lineB.PointA.x) * (lineA.PointB.y - lineA.PointA.y));
+                      - (lineB.PointB.y - lineB.PointA.y) * (lineA.PointA.x - lineB.PointA.x))
+                     / ((lineB.PointB.y - lineB.PointA.y) * (lineA.PointB.x - lineA.PointA.x)
+                        - (lineB.PointB.x - lineB.PointA.x) * (lineA.PointB.y - lineA.PointA.y));
             var uB = ((lineA.PointB.x - lineA.PointA.x) * (lineA.PointA.y - lineB.PointA.y)
-                - (lineA.PointB.y - lineA.PointA.y) * (lineA.PointA.x - lineB.PointA.x))
-                / ((lineB.PointB.y - lineB.PointA.y) * (lineA.PointB.x - lineA.PointA.x)
-                - (lineB.PointB.x - lineB.PointA.x) * (lineA.PointB.y - lineA.PointA.y));
+                      - (lineA.PointB.y - lineA.PointA.y) * (lineA.PointA.x - lineB.PointA.x))
+                     / ((lineB.PointB.y - lineB.PointA.y) * (lineA.PointB.x - lineA.PointA.x)
+                        - (lineB.PointB.x - lineB.PointA.x) * (lineA.PointB.y - lineA.PointA.y));
 
             return uA >= 0 && uA <= 1 && uB >= 0 && uB <= 1;
         }
 
         public bool LineAndPointContact(LineShape line, Vector2 point)
         {
-            float d1 = Vector2.Distance(point, line.PointA);
-            float d2 = Vector2.Distance(point, line.PointB);
+            var d1 = Vector2.Distance(point, line.PointA);
+            var d2 = Vector2.Distance(point, line.PointB);
 
-            float lineLen = Vector2.Distance(line.PointA, line.PointB);
+            var lineLen = Vector2.Distance(line.PointA, line.PointB);
 
-            var buffer = 0.1f;
+            const float buffer = 0.1f;
 
             return d1 + d2 >= lineLen - buffer && d1 + d2 <= lineLen + buffer;
         }
@@ -48,14 +50,14 @@ namespace AsteroidsClone
 
             var distX = line.PointA.x - line.PointB.x;
             var distY = line.PointA.y - line.PointB.y;
-            var len = Mathf.Sqrt((distX * distX) + (distY * distY));
+            var len = Mathf.Sqrt(distX * distX + distY * distY);
 
-            var dot = (((circle.Center.x - line.PointA.x) * (line.PointB.x - line.PointA.x)) 
-                + ((circle.Center.y - line.PointA.y) * (line.PointB.y - line.PointA.y))) 
-                / Mathf.Pow(len, 2);
+            var dot = ((circle.Center.x - line.PointA.x) * (line.PointB.x - line.PointA.x)
+                       + (circle.Center.y - line.PointA.y) * (line.PointB.y - line.PointA.y))
+                      / Mathf.Pow(len, 2);
 
-            var closestX = line.PointA.x + (dot * (line.PointB.x - line.PointA.x));
-            var closestY = line.PointA.y + (dot * (line.PointB.y - line.PointA.y));
+            var closestX = line.PointA.x + dot * (line.PointB.x - line.PointA.x);
+            var closestY = line.PointA.y + dot * (line.PointB.y - line.PointA.y);
 
             var onSegment = LineAndPointContact(line, new Vector2(closestX, closestY));
 
@@ -63,7 +65,7 @@ namespace AsteroidsClone
 
             distX = closestX - circle.Center.x;
             distY = closestY - circle.Center.y;
-            var distance = Mathf.Sqrt((distX * distX) + (distY * distY));
+            var distance = Mathf.Sqrt(distX * distX + distY * distY);
 
             return distance <= circle.Radius;
         }
@@ -82,11 +84,9 @@ namespace AsteroidsClone
                 var vc = polygon.Points[current];
                 var vn = polygon.Points[next];
 
-                if (((vc.y >= point.y && vn.y < point.y) || (vc.y < point.y && vn.y >= point.y)) &&
-                     (point.x < (vn.x - vc.x) * (point.y - vc.y) / (vn.y - vc.y) + vc.x))
-                {
+                if ((vc.y >= point.y && vn.y < point.y || vc.y < point.y && vn.y >= point.y) &&
+                    point.x < (vn.x - vc.x) * (point.y - vc.y) / (vn.y - vc.y) + vc.x)
                     collision = !collision;
-                }
             }
 
             return collision;
@@ -102,7 +102,8 @@ namespace AsteroidsClone
 
                 if (next == polygon.Points.Length) next = 0;
 
-                var hit = LineAndLineContact(line, new LineShape { PointA = polygon.Points[current], PointB = polygon.Points[next] });
+                var hit = LineAndLineContact(line,
+                    new LineShape {PointA = polygon.Points[current], PointB = polygon.Points[next]});
 
                 if (hit) return true;
             }
@@ -120,9 +121,10 @@ namespace AsteroidsClone
 
                 if (next == polygonA.Points.Length) next = 0;
 
-                var collision = PolygonAndLineContact(polygonB, new LineShape { 
-                    PointA = polygonA.Points[current], 
-                    PointB = polygonA.Points[next] 
+                var collision = PolygonAndLineContact(polygonB, new LineShape
+                {
+                    PointA = polygonA.Points[current],
+                    PointB = polygonA.Points[next]
                 });
 
                 if (collision) return true;
@@ -130,9 +132,7 @@ namespace AsteroidsClone
 
             var pointInside = PolygonAndPointContact(polygonA, polygonB.Points[0]);
 
-            if (pointInside) return true;
-
-            return false;
+            return pointInside;
         }
 
         public bool PolygonAndCircleContact(PolygonShape polygon, CircleShape circle)
@@ -145,16 +145,16 @@ namespace AsteroidsClone
 
                 if (next == polygon.Points.Length) next = 0;
 
-                var collision = LineAndCircleContact(new LineShape { PointA = polygon.Points[current], PointB = polygon.Points[next] }, circle);
-                
+                var collision =
+                    LineAndCircleContact(
+                        new LineShape {PointA = polygon.Points[current], PointB = polygon.Points[next]}, circle);
+
                 if (collision) return true;
             }
 
             var centerInside = PolygonAndPointContact(polygon, circle.Center);
 
-            if (centerInside) return true;
-
-            return false;
+            return centerInside;
         }
 
         public void TranslateCircle(ref CircleShape circle, Vector2 deltaPosition)
@@ -204,10 +204,7 @@ namespace AsteroidsClone
         {
             polygon.Center += deltaPosition;
 
-            for (var i = 0; i < polygon.Points.Length; i++)
-            {
-                polygon.Points[i] += deltaPosition;
-            }
+            for (var i = 0; i < polygon.Points.Length; i++) polygon.Points[i] += deltaPosition;
         }
 
         public CircleShape CloneCircle(CircleShape original)
@@ -215,7 +212,7 @@ namespace AsteroidsClone
             return new CircleShape
             {
                 Radius = original.Radius,
-                Center = new Vector2 (original.Center.x, original.Center.y)
+                Center = new Vector2(original.Center.x, original.Center.y)
             };
         }
 
@@ -237,12 +234,12 @@ namespace AsteroidsClone
                 Center = new Vector2(original.Center.x, original.Center.y)
             };
 
-            for(var i = 0; i < original.Points.Length; i++)
-            {
+            for (var i = 0; i < original.Points.Length; i++)
                 clone.Points[i] = new Vector2(original.Points[i].x, original.Points[i].y);
-            }
 
             return clone;
         }
+
+        #endregion
     }
 }

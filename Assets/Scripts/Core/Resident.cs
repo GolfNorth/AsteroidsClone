@@ -2,13 +2,19 @@
 {
     public abstract class Resident
     {
-        private readonly World _world;
+        #region Constructor
 
-        public Resident (World world)
+        protected Resident(World world)
         {
-            this._world = world;
+            World = world;
         }
 
-        protected World World => _world;
+        #endregion
+
+        #region Properties
+
+        protected World World { get; }
+
+        #endregion
     }
 }

@@ -6,10 +6,16 @@ namespace AsteroidsClone
     [CreateAssetMenu(fileName = "AsteroidData")]
     public sealed class AsteroidData : Data
     {
+        #region Fields
+
         [Header("Settings")]
         [SerializeField] private float spawnDelay;
         [SerializeField] private AsteroidSettings[] settings;
         private Dictionary<AsteroidSize, AsteroidSettings> _settings;
+
+        #endregion
+
+        #region Properties
 
         public float SpawnDelay => spawnDelay;
 
@@ -31,5 +37,7 @@ namespace AsteroidsClone
                 return _settings;
             }
         }
+
+        #endregion
     }
 }

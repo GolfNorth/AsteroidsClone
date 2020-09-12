@@ -2,12 +2,22 @@
 {
     public class ScoreController : Controller
     {
-        private int _score;
+        #region Constructor
 
         public ScoreController(World world) : base(world)
         {
             world.NotificationService.Notification += OnNotification;
         }
+
+        #endregion
+
+        #region Properties
+
+        public int Score { get; private set; }
+
+        #endregion
+
+        #region Methods
 
         private void OnNotification(NotificationType notificationType, object obj)
         {
@@ -15,14 +25,14 @@
             {
                 case NotificationType.UfoDestroyed:
                 case NotificationType.AsteroidDestroyed:
-                    _score++;
+                    Score++;
                     break;
                 case NotificationType.ShipSpawned:
-                    _score = 0;
+                    Score = 0;
                     break;
             }
         }
 
-        public int Score => _score;
+        #endregion
     }
 }

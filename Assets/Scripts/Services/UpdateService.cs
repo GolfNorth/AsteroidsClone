@@ -7,60 +7,13 @@ namespace AsteroidsClone
 {
     public sealed class UpdateService
     {
+        #region Fields
+
         private readonly UpdateServiceComponent _component;
 
-        private sealed class UpdateServiceComponent : MonoBehaviour
-        {
-            private readonly List<IDisposable> _disposables = new List<IDisposable>();
-            private readonly List<ITickable> _ticks = new List<ITickable>();
-            private readonly List<ILateTickable> _lateTicks = new List<ILateTickable>();
-            private readonly List<IFixedTickable> _fixedTicks = new List<IFixedTickable>();
+        #endregion
 
-            public List<ITickable> Ticks => _ticks;
-
-            public List<ILateTickable> LateTicks => _lateTicks;
-
-            public List<IFixedTickable> FixedTicks => _fixedTicks;
-
-            public List<IDisposable> Disposables => _disposables;
-
-            public void StartNewCoroutine(IEnumerator method)
-            {
-                StartCoroutine(method);
-            }
-
-            private void Update()
-            {
-                for (var i = 0; i < _ticks.Count; i++)
-                {
-                    _ticks[i]?.Tick();
-                }
-            }
-
-            private void LateUpdate()
-            {
-                for (var i = 0; i < _lateTicks.Count; i++)
-                {
-                    _lateTicks[i]?.LateTick();
-                }
-            }
-
-            private void FixedUpdate()
-            {
-                for (var i = 0; i < _fixedTicks.Count; i++)
-                {
-                    _fixedTicks[i]?.FixedTick();
-                }
-            }
-
-            private void OnDestroy()
-            {
-                for (var i = 0; i < Disposables.Count; i++)
-                {
-                    Disposables[i]?.Dispose();
-                }
-            }
-        }
+        #region Constructor
 
         public UpdateService()
         {
@@ -68,6 +21,50 @@ namespace AsteroidsClone
 
             _component = go.AddComponent<UpdateServiceComponent>();
         }
+
+        #endregion
+
+        #region Private Objects
+
+        private sealed class UpdateServiceComponent : MonoBehaviour
+        {
+            public List<ITickable> Ticks { get; } = new List<ITickable>();
+
+            public List<ILateTickable> LateTicks { get; } = new List<ILateTickable>();
+
+            public List<IFixedTickable> FixedTicks { get; } = new List<IFixedTickable>();
+
+            public List<IDisposable> Disposables { get; } = new List<IDisposable>();
+
+            private void Update()
+            {
+                for (var i = 0; i < Ticks.Count; i++) Ticks[i]?.Tick();
+            }
+
+            private void FixedUpdate()
+            {
+                for (var i = 0; i < FixedTicks.Count; i++) FixedTicks[i]?.FixedTick();
+            }
+
+            private void LateUpdate()
+            {
+                for (var i = 0; i < LateTicks.Count; i++) LateTicks[i]?.LateTick();
+            }
+
+            private void OnDestroy()
+            {
+                for (var i = 0; i < Disposables.Count; i++) Disposables[i]?.Dispose();
+            }
+
+            public void StartNewCoroutine(IEnumerator method)
+            {
+                StartCoroutine(method);
+            }
+        }
+
+        #endregion
+
+        #region Methods
 
         public void Add(object updatable)
         {
@@ -97,5 +94,7 @@ namespace AsteroidsClone
         {
             _component.StartNewCoroutine(method);
         }
+
+        #endregion
     }
 }

@@ -5,32 +5,25 @@ namespace AsteroidsClone
 {
     public sealed class UfoView : View<UfoModel>
     {
+        #region Fields
+
         [SerializeField] private float destroyDelay = 1f;
 
+        #endregion
+
+        #region Properties
+
         public bool IsDestroyed { get; private set; }
+
+        #endregion
+
+        #region Methods
 
         protected override void OnEnable()
         {
             base.OnEnable();
 
-            IsDestroyed = Model is null ? false : Model.IsDestroyed;
-        }
-
-        protected override void OnModelChanged()
-        {
-            Model.Destroyed += () => {
-                if (gameObject.activeSelf)
-                    StartCoroutine(Destroy());
-                else
-                    IsDestroyed = true;
-            };
-        }
-
-        private IEnumerator Destroy()
-        {
-            yield return new WaitForSeconds(destroyDelay);
-
-            IsDestroyed = true;
+            IsDestroyed = Model?.IsDestroyed ?? false;
         }
 
         private void OnDrawGizmos()
@@ -46,5 +39,25 @@ namespace AsteroidsClone
                 Gizmos.DrawLine(Model.Shape.Points[current], Model.Shape.Points[next]);
             }
         }
+
+        protected override void OnModelChanged()
+        {
+            Model.Destroyed += () =>
+            {
+                if (gameObject.activeSelf)
+                    StartCoroutine(Destroy());
+                else
+                    IsDestroyed = true;
+            };
+        }
+
+        private IEnumerator Destroy()
+        {
+            yield return new WaitForSeconds(destroyDelay);
+
+            IsDestroyed = true;
+        }
+
+        #endregion
     }
 }

@@ -6,6 +6,8 @@ namespace AsteroidsClone
 {
     public sealed class World : MonoBehaviour
     {
+        #region Fields
+
         [SerializeField] private ShipData shipData;
         [SerializeField] private UfoData ufoData;
         [SerializeField] private AsteroidData asteroidData;
@@ -13,19 +15,9 @@ namespace AsteroidsClone
         [SerializeField] private LaserData laserData;
         [SerializeField] private UserInterfaceView userInterfaceView;
 
-        private UpdateService _updateService;
-        private PhysicsService _physicsService;
-        private BoundsService _boundsService;
-        private NotificationService _notificationService;
-        private InputService _inputService;
+        #endregion
 
-        private ScoreController _scoreController;
-        private GameController _gameController;
-        private AsteroidsController _asteroidsController;
-        private UfosController _ufosController;
-        private FireController _fireController;
-        private ViewModeController _viewModeController;
-        private CollisionController _collisionController;
+        #region Properties
 
         public ViewMode ViewMode { get; set; }
 
@@ -37,19 +29,33 @@ namespace AsteroidsClone
 
         public Dictionary<Type, Data> Data { get; private set; }
 
-        public UpdateService UpdateService => _updateService;
-        public PhysicsService PhysicsService => _physicsService;
-        public BoundsService BoundsService => _boundsService;
-        public InputService InputService => _inputService;
-        public NotificationService NotificationService => _notificationService;
+        public UpdateService UpdateService { get; private set; }
 
-        public ScoreController ScoreController => _scoreController;
-        public GameController GameController => _gameController;
-        public AsteroidsController AsteroidsController => _asteroidsController;
-        public UfosController UfosController => _ufosController;
-        public FireController FireController => _fireController;
-        public ViewModeController ViewModeController => _viewModeController;
-        public CollisionController CollisionController => _collisionController;
+        public PhysicsService PhysicsService { get; private set; }
+
+        public BoundsService BoundsService { get; private set; }
+
+        public InputService InputService { get; private set; }
+
+        public NotificationService NotificationService { get; private set; }
+
+        public ScoreController ScoreController { get; private set; }
+
+        public GameController GameController { get; private set; }
+
+        public AsteroidsController AsteroidsController { get; private set; }
+
+        public UfosController UfosController { get; private set; }
+
+        public FireController FireController { get; private set; }
+
+        public ViewModeController ViewModeController { get; private set; }
+
+        public CollisionController CollisionController { get; private set; }
+
+        #endregion
+
+        #region Methods
 
         private void Awake()
         {
@@ -64,33 +70,36 @@ namespace AsteroidsClone
 
         private void InitializeData()
         {
-            Data = new Dictionary<Type, Data>();
-
-            Data.Add(typeof(ShipData), shipData);
-            Data.Add(typeof(UfoData), ufoData);
-            Data.Add(typeof(AsteroidData), asteroidData);
-            Data.Add(typeof(BulletData), bulletData);
-            Data.Add(typeof(LaserData), laserData);
+            Data = new Dictionary<Type, Data>
+            {
+                {typeof(ShipData), shipData},
+                {typeof(UfoData), ufoData},
+                {typeof(AsteroidData), asteroidData},
+                {typeof(BulletData), bulletData},
+                {typeof(LaserData), laserData}
+            };
         }
 
         private void InitializeServices()
         {
-            _updateService = new UpdateService();
-            _physicsService = new PhysicsService();
-            _boundsService = new BoundsService();
-            _inputService = new InputService(this);
-            _notificationService = new NotificationService();
+            UpdateService = new UpdateService();
+            PhysicsService = new PhysicsService();
+            BoundsService = new BoundsService();
+            InputService = new InputService(this);
+            NotificationService = new NotificationService();
         }
 
         private void InitializeControllers()
         {
-            _scoreController = new ScoreController(this);
-            _gameController = new GameController(this);
-            _asteroidsController = new AsteroidsController(this);
-            _ufosController = new UfosController(this);
-            _fireController = new FireController(this);
-            _viewModeController = new ViewModeController(this);
-            _collisionController = new CollisionController(this);
+            ScoreController = new ScoreController(this);
+            GameController = new GameController(this);
+            AsteroidsController = new AsteroidsController(this);
+            UfosController = new UfosController(this);
+            FireController = new FireController(this);
+            ViewModeController = new ViewModeController(this);
+            CollisionController = new CollisionController(this);
         }
+
+        #endregion
     }
 }

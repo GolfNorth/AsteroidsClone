@@ -4,30 +4,40 @@ namespace AsteroidsClone
 {
     public class UfosController : Controller, ITickable, IFixedTickable
     {
-        private readonly ObjectPool<Ufo> _ufosPool;
-        private float _spawnDelay;
-        private float _spawnTimer;
+        #region Constructor
 
         public UfosController(World world) : base(world)
         {
-            _spawnDelay = ((UfoData)World.Data[typeof(UfoData)]).SpawnDelay;
+            _spawnDelay = ((UfoData) World.Data[typeof(UfoData)]).SpawnDelay;
 
             _ufosPool = new ObjectPool<Ufo>
             {
-                GetInstance = () => { return new Ufo(World); }
+                GetInstance = () => new Ufo(World)
             };
 
             World.UpdateService.Add(this);
             World.Ufos = _ufosPool.All;
         }
 
-        public override void RestartGame()
-        {
-            _spawnTimer = 0;
+        #endregion
 
+        #region Fields
+
+        private readonly ObjectPool<Ufo> _ufosPool;
+        private readonly float _spawnDelay;
+        private float _spawnTimer;
+
+        #endregion
+
+        #region Methods
+
+        public void FixedTick()
+        {
             for (var i = 0; i < World.Ufos.Count; i++)
             {
-                _ufosPool.Release(World.Ufos[i]);
+                if (World.Ufos[i] is null || !World.Ufos[i].IsActive) continue;
+
+                World.Ufos[i].FixedTick();
             }
         }
 
@@ -51,26 +61,25 @@ namespace AsteroidsClone
             _spawnTimer = 0;
         }
 
-        public void FixedTick()
+        public override void RestartGame()
         {
-            for (var i = 0; i < World.Ufos.Count; i++)
-            {
-                if (World.Ufos[i] is null || !World.Ufos[i].IsActive) continue;
+            _spawnTimer = 0;
 
-                World.Ufos[i].FixedTick();
-            }
+            for (var i = 0; i < World.Ufos.Count; i++) _ufosPool.Release(World.Ufos[i]);
         }
 
-        public void SpawnUfo()
+        private void SpawnUfo()
         {
-            var Ufo = _ufosPool.Acquire();
+            var ufo = _ufosPool.Acquire();
 
-            Ufo.RandomizePosition();
+            ufo.RandomizePosition();
         }
 
-        public void DestroyUfo(Ufo Ufo)
+        public void DestroyUfo(Ufo ufo)
         {
-            _ufosPool.Release(Ufo);
+            _ufosPool.Release(ufo);
         }
+
+        #endregion
     }
 }

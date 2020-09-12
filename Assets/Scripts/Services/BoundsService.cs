@@ -1,22 +1,18 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace AsteroidsClone
 {
     public sealed class BoundsService
     {
-        private Camera _camera;
-        private float _topBound;
-        private float _bottomBound;
-        private float _leftBound;
-        private float _rightBound;
+        #region Fields
 
-        public float TopBound => _topBound;
+        private readonly Camera _camera;
 
-        public float BottomBound => _bottomBound;
+        #endregion
 
-        public float LeftBound => _leftBound;
-
-        public float RightBound => _rightBound;
+        #region Constructor
 
         public BoundsService()
         {
@@ -25,39 +21,55 @@ namespace AsteroidsClone
             RecalculateBounds();
         }
 
+        #endregion
+
+        #region Properties
+
+        public float TopBound { get; private set; }
+
+        public float BottomBound { get; private set; }
+
+        public float LeftBound { get; private set; }
+
+        public float RightBound { get; private set; }
+
+        #endregion
+
+        #region Methods
+
         private void RecalculateBounds()
         {
             var z = _camera.gameObject.transform.position.z;
             var topRight = _camera.ViewportToWorldPoint(new Vector3(1, 1, -z));
             var bottomLeft = _camera.ViewportToWorldPoint(new Vector3(0, 0, -z));
 
-            _topBound = topRight.y;
-            _bottomBound = bottomLeft.y;
-            _leftBound = bottomLeft.x;
-            _rightBound = topRight.x;
+            TopBound = topRight.y;
+            BottomBound = bottomLeft.y;
+            LeftBound = bottomLeft.x;
+            RightBound = topRight.x;
         }
 
         public void WrapPosition(Vector2 input, ref Vector2 output, float offset = 0)
         {
             output = input;
 
-            if (input.x < _leftBound - offset)
-                output.x = _rightBound + offset;
+            if (input.x < LeftBound - offset)
+                output.x = RightBound + offset;
 
-            if (input.x >= _rightBound + offset)
-                output.x = _leftBound - offset;
+            if (input.x >= RightBound + offset)
+                output.x = LeftBound - offset;
 
-            if (input.y < _bottomBound - offset)
-                output.y = _topBound + offset;
+            if (input.y < BottomBound - offset)
+                output.y = TopBound + offset;
 
-            if (input.y >= _topBound + offset)
-                output.y = _bottomBound - offset;
+            if (input.y >= TopBound + offset)
+                output.y = BottomBound - offset;
         }
 
         public Vector2 RandomizePosition(float offset = 0)
         {
             var position = new Vector2();
-            var bound = (BoundSide)Random.Range(0, System.Enum.GetValues(typeof(BoundSide)).Length);
+            var bound = (BoundSide) Random.Range(0, Enum.GetValues(typeof(BoundSide)).Length);
 
             switch (bound)
             {
@@ -79,7 +91,9 @@ namespace AsteroidsClone
                     break;
             }
 
-           return position;
+            return position;
         }
+
+        #endregion
     }
 }

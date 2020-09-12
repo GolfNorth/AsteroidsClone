@@ -2,13 +2,20 @@
 {
     public abstract class Controller : Resident
     {
-        public Controller(World world) : base(world)
+        #region Constructor
+
+        protected Controller(World world) : base(world)
         {
         }
+
+        #endregion
+
+        #region Methods
 
         public virtual void RestartGame()
         {
-
         }
+
+        #endregion
     }
 }

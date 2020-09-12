@@ -1,20 +1,30 @@
 ﻿namespace AsteroidsClone
 {
-    public sealed class Ufo : Actor<UfoModel, UfoView, UfoData>, IDestroyable, IPoolable, ITickable, IFixedTickable
+    public sealed class Ufo : Actor<UfoModel, UfoView, UfoData>, IDestroyable, ITickable, IFixedTickable
     {
-        public PolygonShape Shape => Model.Shape;
-
-        public bool IsDestroyed => Model.IsDestroyed;
+        #region Constructor
 
         public Ufo(World world) : base(world)
         {
         }
 
+        #endregion
+
+        #region Properties
+
+        public PolygonShape Shape => Model.Shape;
+
+        public bool IsDestroyed => Model.IsDestroyed;
+
+        #endregion
+
+        #region Methods
+
         public override void Enable()
         {
             Revive();
 
-            base.Enable();
+            Model.IsActive = true;
         }
 
         public void Tick()
@@ -48,5 +58,7 @@
         {
             Model.RandomizePosition();
         }
+
+        #endregion
     }
 }

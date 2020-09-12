@@ -4,19 +4,12 @@ namespace AsteroidsClone
 {
     public class FireController : Controller, ITickable, IFixedTickable
     {
-        private readonly ObjectPool<Bullet> _bulletsPool;
-        private float _bulletRapidity;
-        private float _bulletDelay;
-        private float _laserDuration;
-        private float _laserCooldown;
-        private float _laserDelay;
-
-        public bool IsLaserReady => !World.Laser.IsActive && _laserDelay >= _laserCooldown;
+        #region Constructor
 
         public FireController(World world) : base(world)
         {
-            var bulletData = (BulletData)World.Data[typeof(BulletData)];
-            var laserData = (LaserData)World.Data[typeof(LaserData)];
+            var bulletData = (BulletData) World.Data[typeof(BulletData)];
+            var laserData = (LaserData) World.Data[typeof(LaserData)];
 
             _bulletRapidity = bulletData.Rapidity;
             _laserDuration = laserData.Duration;
@@ -24,7 +17,7 @@ namespace AsteroidsClone
 
             _bulletsPool = new ObjectPool<Bullet>
             {
-                GetInstance = () => { return new Bullet(World); }
+                GetInstance = () => new Bullet(World)
             };
 
             World.Laser = new Laser(world);
@@ -32,17 +25,37 @@ namespace AsteroidsClone
             World.UpdateService.Add(this);
         }
 
-        public override void RestartGame()
+        #endregion
+
+        #region Properties
+
+        public bool IsLaserReady => !World.Laser.IsActive && _laserDelay >= _laserCooldown;
+
+        #endregion
+
+        #region Fields
+
+        private readonly ObjectPool<Bullet> _bulletsPool;
+        private float _bulletDelay;
+        private readonly float _bulletRapidity;
+        private readonly float _laserCooldown;
+        private float _laserDelay;
+        private readonly float _laserDuration;
+
+        #endregion
+
+        #region Methods
+
+        public void FixedTick()
         {
-            _bulletDelay = 0;
-            _laserDelay = 0;
-
-            World.Laser.Disable();
-
             for (var i = 0; i < World.Bullets.Count; i++)
             {
-                _bulletsPool.Release(World.Bullets[i]);
+                if (World.Bullets[i] is null || !World.Bullets[i].IsActive) continue;
+
+                World.Bullets[i].FixedTick();
             }
+
+            World.Laser.FixedTick();
         }
 
         public void Tick()
@@ -55,19 +68,17 @@ namespace AsteroidsClone
                 World.Laser.Disable();
 
                 _laserDelay = 0;
-            } 
+            }
         }
 
-        public void FixedTick()
+        public override void RestartGame()
         {
-            for (var i = 0; i < World.Bullets.Count; i++)
-            {
-                if (World.Bullets[i] is null || !World.Bullets[i].IsActive) continue;
+            _bulletDelay = 0;
+            _laserDelay = 0;
 
-                World.Bullets[i].FixedTick();
-            }
+            World.Laser.Disable();
 
-            World.Laser.FixedTick();
+            for (var i = 0; i < World.Bullets.Count; i++) _bulletsPool.Release(World.Bullets[i]);
         }
 
         public void Fire(Vector2 position, float angle)
@@ -97,5 +108,7 @@ namespace AsteroidsClone
         {
             _bulletsPool.Release(bullet);
         }
+
+        #endregion
     }
 }

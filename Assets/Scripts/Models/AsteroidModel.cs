@@ -6,11 +6,29 @@ namespace AsteroidsClone
 {
     public sealed class AsteroidModel : Model, IDestroyable
     {
-        private AsteroidData _data;
-        private AsteroidSize _size;
+        #region Constructor
+
+        public AsteroidModel(AsteroidData data, World world) : base(world)
+        {
+            _data = data;
+            _shape = new CircleShape();
+
+            PositionChanged += deltaPosition => World.PhysicsService.TranslateCircle(ref _shape, deltaPosition);
+        }
+
+        #endregion
+
+        #region Fields
+
+        private readonly AsteroidData _data;
         private CircleShape _shape;
+        private AsteroidSize _size;
 
         public Action Destroyed;
+
+        #endregion
+
+        #region Properties
 
         public AsteroidSize Size
         {
@@ -33,13 +51,9 @@ namespace AsteroidsClone
 
         public bool IsDestroyed { get; set; }
 
-        public AsteroidModel(AsteroidData data, World world) : base(world)
-        {
-            _data = data;
-            _shape = new CircleShape();
+        #endregion
 
-            PositionChanged += (deltaPosition) => World.PhysicsService.TranslateCircle(ref _shape, deltaPosition);
-        }
+        #region Methods
 
         public void Revive()
         {
@@ -75,7 +89,7 @@ namespace AsteroidsClone
 
         public void RandomizeSize()
         {
-            Size = (AsteroidSize)Random.Range(1, Enum.GetValues(typeof(AsteroidSize)).Length);
+            Size = (AsteroidSize) Random.Range(1, Enum.GetValues(typeof(AsteroidSize)).Length);
         }
 
         public void Move()
@@ -86,5 +100,7 @@ namespace AsteroidsClone
 
             Position = position;
         }
+
+        #endregion
     }
 }

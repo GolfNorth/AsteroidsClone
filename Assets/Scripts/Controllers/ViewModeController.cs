@@ -2,13 +2,32 @@
 {
     public class ViewModeController : Controller, ITickable
     {
+        #region Fields
+
         private ViewMode _viewMode;
+
+        #endregion
+
+        #region Constructor
 
         public ViewModeController(World world) : base(world)
         {
             _viewMode = World.ViewMode;
 
             World.UpdateService.Add(this);
+        }
+
+        #endregion
+
+        #region Methods
+
+        public void Tick()
+        {
+            if (_viewMode == World.ViewMode) return;
+
+            SwitchViewMode(World.ViewMode);
+
+            World.NotificationService.Notify(NotificationType.ViewModeChanged);
         }
 
         public void SwitchViewMode(ViewMode viewMode)
@@ -29,13 +48,6 @@
                 World.Bullets[i].ViewMode = viewMode;
         }
 
-        public void Tick()
-        {
-            if (_viewMode == World.ViewMode) return;
-
-            SwitchViewMode(World.ViewMode);
-
-            World.NotificationService.Notify(NotificationType.ViewModeChanged);
-        }
+        #endregion
     }
 }

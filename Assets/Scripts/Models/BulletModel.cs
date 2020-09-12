@@ -4,8 +4,20 @@ namespace AsteroidsClone
 {
     public sealed class BulletModel : Model
     {
-        private const float Offset = 5f;
-        private BulletData _data;
+        #region Constructor
+
+        public BulletModel(BulletData data, World world) : base(world)
+        {
+            _data = data;
+
+            Velocity = Direction * _data.Speed;
+
+            AngleChanged += _ => Velocity = Direction * _data.Speed;
+        }
+
+        #endregion
+
+        #region Properties
 
         public bool IsInsideField
         {
@@ -23,18 +35,22 @@ namespace AsteroidsClone
             }
         }
 
-        public BulletModel(BulletData data, World world) : base(world)
-        {
-            _data = data;
+        #endregion
 
-            Velocity = Direction * _data.Speed;
-
-            AngleChanged += (_) => Velocity = Direction * _data.Speed;
-        }
+        #region Methods
 
         public void Move()
         {
             Position += Velocity * Time.fixedDeltaTime;
         }
+
+        #endregion
+
+        #region Fields
+
+        private const float Offset = 5f;
+        private readonly BulletData _data;
+
+        #endregion
     }
 }

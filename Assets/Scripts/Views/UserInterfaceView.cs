@@ -5,10 +5,31 @@ namespace AsteroidsClone
 {
     public sealed class UserInterfaceView : MonoBehaviour
     {
+        #region Fields
+
         [SerializeField] private World world;
         [SerializeField] private Text score;
         [SerializeField] private Text laser;
         [SerializeField] private Text gameover;
+
+        #endregion
+
+        #region Methods
+
+        private void Update()
+        {
+            if (!Input.GetKeyDown(KeyCode.Tab)) return;
+
+            world.ViewModeController.SwitchViewMode(world.ViewMode == ViewMode.Polygonal
+                ? ViewMode.Sprite
+                : ViewMode.Polygonal);
+        }
+
+        private void LateUpdate()
+        {
+            gameover.enabled = world.Ship.IsDestroyed;
+            laser.enabled = world.FireController.IsLaserReady;
+        }
 
         private void OnEnable()
         {
@@ -36,21 +57,6 @@ namespace AsteroidsClone
             }
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Tab))
-            {
-                if (world.ViewMode == ViewMode.Polygonal)
-                    world.ViewModeController.SwitchViewMode(ViewMode.Sprite);
-                else
-                    world.ViewModeController.SwitchViewMode(ViewMode.Polygonal);
-            }
-        }
-
-        private void LateUpdate()
-        {
-            gameover.enabled = world.Ship.IsDestroyed;
-            laser.enabled = world.FireController.IsLaserReady;
-        }
+        #endregion
     }
 }

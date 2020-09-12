@@ -5,34 +5,31 @@ namespace AsteroidsClone
 {
     public abstract class Model : Resident, IActivatable
     {
+        #region Constructor
+
+        protected Model(World world) : base(world)
+        {
+        }
+
+        #endregion
+
+        #region Fields
+
+        private float _angle;
         private bool _isActive;
-        private ViewMode _viewMode;
         private Vector2 _position;
         private Vector2 _velocity;
-        private float _angle;
+        private ViewMode _viewMode;
+        public Action<float> AngleChanged;
 
         public Action IsActiveChanged;
-        public Action ViewModeChanged;
         public Action<Vector2> PositionChanged;
         public Action VelocityChanged;
-        public Action<float> AngleChanged;
-        public Action SpeedChanged;
+        public Action ViewModeChanged;
 
-        public Model(World world) : base(world)
-        {
-        }
+        #endregion
 
-        public bool IsActive
-        {
-            get => _isActive;
-            set {
-                if (_isActive == value) return;
-
-                _isActive = value;
-
-                IsActiveChanged?.Invoke();
-            }
-        }
+        #region Properties
 
         public ViewMode ViewMode
         {
@@ -103,5 +100,20 @@ namespace AsteroidsClone
                 return direction.normalized;
             }
         }
+
+        public bool IsActive
+        {
+            get => _isActive;
+            set
+            {
+                if (_isActive == value) return;
+
+                _isActive = value;
+
+                IsActiveChanged?.Invoke();
+            }
+        }
+
+        #endregion
     }
 }

@@ -4,20 +4,27 @@ namespace AsteroidsClone
 {
     public abstract class View<TModel> : MonoBehaviour where TModel : Model
     {
+        #region Fields
+
         private TModel _model;
+
+        #endregion
+
+        #region Properties
 
         public ViewMode ViewMode { get; set; }
 
-        public TModel Model { 
-            protected get => _model; 
+        public TModel Model
+        {
+            protected get => _model;
             set
             {
                 _model = value;
 
                 _model.IsActiveChanged += () => gameObject.SetActive(_model.IsActive && _model.ViewMode == ViewMode);
                 _model.ViewModeChanged += () => gameObject.SetActive(_model.IsActive && _model.ViewMode == ViewMode);
-                _model.PositionChanged += (_) => transform.position = _model.Position;
-                _model.AngleChanged += (_) => transform.rotation = Quaternion.Euler(0, 0, _model.Angle);
+                _model.PositionChanged += _ => transform.position = _model.Position;
+                _model.AngleChanged += _ => transform.rotation = Quaternion.Euler(0, 0, _model.Angle);
 
                 gameObject.SetActive(_model.IsActive && _model.ViewMode == ViewMode);
                 transform.position = _model.Position;
@@ -27,10 +34,9 @@ namespace AsteroidsClone
             }
         }
 
-        protected virtual void OnModelChanged()
-        {
+        #endregion
 
-        }
+        #region Methods
 
         protected virtual void OnEnable()
         {
@@ -39,5 +45,11 @@ namespace AsteroidsClone
             transform.position = _model.Position;
             transform.rotation = Quaternion.Euler(0, 0, _model.Angle);
         }
+
+        protected virtual void OnModelChanged()
+        {
+        }
+
+        #endregion
     }
 }

@@ -5,17 +5,7 @@ namespace AsteroidsClone
 {
     public sealed class UfoModel : Model
     {
-        private UfoData _data;
-        private PolygonShape _shape;
-        private float _offset;
-
-        public Action Destroyed;
-
-        public PolygonShape Shape => _shape;
-
-        public float Speed { get; set; }
-
-        public bool IsDestroyed { get; set; }
+        #region Constructor
 
         public UfoModel(UfoData data, World world) : base(world)
         {
@@ -24,8 +14,32 @@ namespace AsteroidsClone
 
             CalculateOffset();
 
-            PositionChanged += (deltaPosition) => World.PhysicsService.TranslatePolygon(ref _shape, deltaPosition);
+            PositionChanged += deltaPosition => World.PhysicsService.TranslatePolygon(ref _shape, deltaPosition);
         }
+
+        #endregion
+
+        #region Fields
+
+        private readonly UfoData _data;
+        private float _offset;
+        private PolygonShape _shape;
+
+        public Action Destroyed;
+
+        #endregion
+
+        #region Properties
+
+        public PolygonShape Shape => _shape;
+
+        public float Speed { get; set; }
+
+        public bool IsDestroyed { get; set; }
+
+        #endregion
+
+        #region Methods
 
         private void CalculateOffset()
         {
@@ -74,5 +88,7 @@ namespace AsteroidsClone
 
             Position = position;
         }
+
+        #endregion
     }
 }

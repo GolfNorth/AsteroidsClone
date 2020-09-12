@@ -4,9 +4,7 @@ namespace AsteroidsClone
 {
     public class AsteroidsController : Controller, ITickable, IFixedTickable
     {
-        private readonly ObjectPool<Asteroid> _asteroidsPool;
-        private float _spawnDelay;
-        private float _spawnTimer;
+        #region Constructor
 
         public AsteroidsController(World world) : base(world)
         {
@@ -14,24 +12,35 @@ namespace AsteroidsClone
 
             _asteroidsPool = new ObjectPool<Asteroid>
             {
-                GetInstance = () => { return new Asteroid(World); }
+                GetInstance = () => new Asteroid(World)
             };
 
             SpawnAsteroid();
 
-            World.UpdateService.Add(this);
             World.Asteroids = _asteroidsPool.All;
             World.NotificationService.Notification += SpawnSmaller;
+
+            World.UpdateService.Add(this);
         }
+
+        #endregion
+
+        #region Fields
+
+        private readonly ObjectPool<Asteroid> _asteroidsPool;
+        private readonly float _spawnDelay;
+        private float _spawnTimer;
+
+        #endregion
+
+        #region Methods
 
         public override void RestartGame()
         {
             _spawnTimer = 0;
 
             for (var i = 0; i < World.Asteroids.Count; i++)
-            {
                 _asteroidsPool.Release(World.Asteroids[i]);
-            }
         }
 
         public void Tick()
@@ -64,7 +73,7 @@ namespace AsteroidsClone
             }
         }
 
-        public void SpawnAsteroid(AsteroidSize size = AsteroidSize.None, Vector2 position = new Vector2())
+        private void SpawnAsteroid(AsteroidSize size = AsteroidSize.None, Vector2 position = new Vector2())
         {
             var asteroid = _asteroidsPool.Acquire();
 
@@ -81,11 +90,11 @@ namespace AsteroidsClone
             asteroid.RandomizeAngleAndSpeed();
         }
 
-        public void SpawnSmaller(NotificationType notificationType, object obj)
+        private void SpawnSmaller(NotificationType notificationType, object obj)
         {
             if (notificationType != NotificationType.AsteroidDestroyed) return;
 
-            var asteroid = (Asteroid)obj;
+            var asteroid = (Asteroid) obj;
 
             if (asteroid.Size == AsteroidSize.Large)
             {
@@ -103,5 +112,7 @@ namespace AsteroidsClone
         {
             _asteroidsPool.Release(asteroid);
         }
+
+        #endregion
     }
 }

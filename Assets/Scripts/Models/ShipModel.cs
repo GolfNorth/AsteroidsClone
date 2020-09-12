@@ -5,15 +5,7 @@ namespace AsteroidsClone
 {
     public sealed class ShipModel : Model, IDestroyable
     {
-        private ShipData _data;
-        private PolygonShape _shape;
-        private float _offset;
-
-        public Action Destroyed;
-
-        public PolygonShape Shape => _shape;
-
-        public bool IsDestroyed { get; set; }
+        #region Constructor
 
         public ShipModel(ShipData data, World world) : base(world)
         {
@@ -22,23 +14,31 @@ namespace AsteroidsClone
 
             CalculateOffset();
 
-            PositionChanged += (deltaPosition) => World.PhysicsService.TranslatePolygon(ref _shape, deltaPosition);
-            AngleChanged += (deltaAngle) => World.PhysicsService.RotatePolygon(ref _shape, deltaAngle);
+            PositionChanged += deltaPosition => World.PhysicsService.TranslatePolygon(ref _shape, deltaPosition);
+            AngleChanged += deltaAngle => World.PhysicsService.RotatePolygon(ref _shape, deltaAngle);
         }
 
-        private void CalculateOffset()
-        {
-            _offset = 0;
+        #endregion
 
-            foreach(var point in _shape.Points)
-            {
-                var x = Mathf.Abs(point.x);
-                var y = Mathf.Abs(point.y);
-                var max = x > y ? x : y;
+        #region Fields
 
-                _offset = max > _offset ? max : _offset;
-            }
-        }
+        private readonly ShipData _data;
+        private float _offset;
+        private PolygonShape _shape;
+
+        public Action Destroyed;
+
+        #endregion
+
+        #region Properties
+
+        public PolygonShape Shape => _shape;
+
+        public bool IsDestroyed { get; set; }
+
+        #endregion
+
+        #region Methods
 
         public void Revive()
         {
@@ -58,12 +58,23 @@ namespace AsteroidsClone
             Destroyed?.Invoke();
         }
 
+        private void CalculateOffset()
+        {
+            _offset = 0;
+
+            foreach (var point in _shape.Points)
+            {
+                var x = Mathf.Abs(point.x);
+                var y = Mathf.Abs(point.y);
+                var max = x > y ? x : y;
+
+                _offset = max > _offset ? max : _offset;
+            }
+        }
+
         public void Move(float translation, float rotation)
         {
-            if (rotation != 0)
-            {
-                Angle -= rotation * _data.AngularSpeed * Time.fixedDeltaTime;
-            }
+            if (rotation != 0) Angle -= rotation * _data.AngularSpeed * Time.fixedDeltaTime;
 
             if (translation > 0)
             {
@@ -85,5 +96,7 @@ namespace AsteroidsClone
 
             Position = position;
         }
+
+        #endregion
     }
 }
