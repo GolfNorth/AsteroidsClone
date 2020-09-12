@@ -37,7 +37,7 @@ namespace AsteroidsClone
             _rightBound = topRight.x;
         }
 
-        public void WrapCoordinates(Vector2 input, ref Vector2 output, float offset = 0)
+        public void WrapPosition(Vector2 input, ref Vector2 output, float offset = 0)
         {
             output = input;
 

@@ -7,24 +7,32 @@ namespace AsteroidsClone
         private TModel _model;
 
         public ViewMode ViewMode { get; set; }
+
         public TModel Model { 
             protected get => _model; 
             set
             {
                 _model = value;
 
-                _model.IsActiveChanged += () => { gameObject.SetActive(_model.ViewMode == ViewMode); };
-                _model.ViewModeChanged += () => { gameObject.SetActive(_model.ViewMode == ViewMode); };
-                _model.PositionChanged += () => { transform.position = _model.Position; };
-                _model.AngleChanged += () => { transform.rotation = Quaternion.Euler(0, 0, _model.Angle); };
+                _model.IsActiveChanged += () => gameObject.SetActive(_model.IsActive && _model.ViewMode == ViewMode);
+                _model.ViewModeChanged += () => gameObject.SetActive(_model.ViewMode == ViewMode);
+                _model.PositionChanged += (_) => transform.position = _model.Position;
+                _model.AngleChanged += (_) => transform.rotation = Quaternion.Euler(0, 0, _model.Angle);
 
-                gameObject.SetActive(_model.IsActive);
+                gameObject.SetActive(_model.IsActive && _model.ViewMode == ViewMode);
                 transform.position = _model.Position;
                 transform.rotation = Quaternion.Euler(0, 0, _model.Angle);
+
+                OnModelChanged();
             }
         }
 
-        public virtual void OnEnable()
+        protected virtual void OnModelChanged()
+        {
+
+        }
+
+        protected virtual void OnEnable()
         {
             if (Model is null) return;
 

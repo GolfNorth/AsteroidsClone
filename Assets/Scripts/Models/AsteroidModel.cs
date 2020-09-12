@@ -1,40 +1,69 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace AsteroidsClone
 {
-    public sealed class AsteroidModel : Model
+    public sealed class AsteroidModel : Model, IDestroyable
     {
+        private AsteroidData _data;
         private AsteroidSize _size;
+        private CircleShape _shape;
 
-        public AsteroidModel(AsteroidData data, World world) : base(world)
+        public Action Destroyed;
+
+        public AsteroidSize Size
         {
-            Data = data;
-        }
-
-        public AsteroidSize Size {
             get => _size;
             set
             {
                 if (_size == value) return;
 
                 _size = value;
-                Radius = Data.Settings[value].Radius;
-                Shape = new CircleShape { Radius = Radius };
+                Radius = _size != AsteroidSize.None ? _data.Settings[value].Radius : 0;
+                _shape.Radius = Radius;
             }
         }
 
-        private AsteroidData Data { get; set; }
-
-        public CircleShape Shape { get; set; }
+        public CircleShape Shape => _shape;
 
         public float Radius { get; set; }
 
         public float Speed { get; set; }
 
+        public bool IsDestroyed { get; set; }
+
+        public AsteroidModel(AsteroidData data, World world) : base(world)
+        {
+            _data = data;
+            _shape = new CircleShape();
+
+            PositionChanged += (deltaPosition) => World.PhysicsService.TranslateCircle(ref _shape, deltaPosition);
+        }
+
+        public void Revive()
+        {
+            IsDestroyed = false;
+
+            Size = AsteroidSize.None;
+            Position = Vector2.zero;
+            Velocity = Vector2.zero;
+            Angle = 0;
+        }
+
+        public void Destroy()
+        {
+            IsDestroyed = true;
+
+            Velocity = Vector2.zero;
+
+            Destroyed?.Invoke();
+        }
+
         public void RandomizeAngleAndSpeed()
         {
             Angle = Random.Range(0, 360);
-            Speed = Random.Range(Data.Settings[Size].MinSpeed, Data.Settings[Size].MaxSpeed);
+            Speed = Random.Range(_data.Settings[Size].MinSpeed, _data.Settings[Size].MaxSpeed);
 
             Velocity = Direction * Speed;
         }
@@ -46,14 +75,14 @@ namespace AsteroidsClone
 
         public void RandomizeSize()
         {
-            Size = (AsteroidSize)Random.Range(1, System.Enum.GetValues(typeof(AsteroidSize)).Length);
+            Size = (AsteroidSize)Random.Range(1, Enum.GetValues(typeof(AsteroidSize)).Length);
         }
 
         public void Move()
         {
             var position = Position + Velocity * Time.fixedDeltaTime;
 
-            World.BoundsService.WrapCoordinates(position, ref position, Data.Settings[Size].Radius);
+            World.BoundsService.WrapPosition(position, ref position, Radius);
 
             Position = position;
         }

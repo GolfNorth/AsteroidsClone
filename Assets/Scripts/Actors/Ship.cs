@@ -1,38 +1,58 @@
-﻿using UnityEngine;
-
-namespace AsteroidsClone
+﻿namespace AsteroidsClone
 {
-    public sealed class Ship : Actor<ShipModel, ShipView, ShipData>, ITickable, IFixedTickable
+    public sealed class Ship : Actor<ShipModel, ShipView, ShipData>, IDestroyable, ITickable, IFixedTickable
     {
-        private readonly InputService inputService;
-        private readonly FireController fireController;
+        public PolygonShape Shape => Model.Shape;
+
+        public bool IsDestroyed => Model.IsDestroyed;
 
         public Ship(World world) : base(world)
         {
-            inputService = World.InputService;
-            fireController = World.FireController;
         }
 
         public void Tick()
         {
-            if (inputService.Fire) Fire();
+            if (IsDestroyed)
+            {
+                if (View.IsDestroyed) Model.IsActive = false;
 
-            if (inputService.AltFire) AltFire();
+                return;
+            }
+
+            if (World.InputService.Fire) Fire();
+
+            if (World.InputService.AltFire) AltFire();
         }
 
         public void FixedTick()
         {
-            Model.Move(inputService.Translation, inputService.Rotation);
+            if (IsDestroyed) return;
+
+            Model.Move(World.InputService.Translation, World.InputService.Rotation);
         }
 
         public void Fire()
         {
-            fireController.Fire(Model.Position, Model.Angle);
+            World.FireController.Fire(Model.Position, Model.Angle);
         }
 
         public void AltFire()
         {
-            fireController.Fire(Model.Position, Model.Angle);
+            World.FireController.Fire(Model.Position, Model.Angle);
+        }
+
+        public void Revive()
+        {
+            Model.Revive();
+
+            World.NotificationService.Notify(NotificationType.ShipSpawned, this);
+        }
+
+        public void Destroy()
+        {
+            Model.Destroy();
+
+            World.NotificationService.Notify(NotificationType.ShipDestroyed, this);
         }
     }
 }

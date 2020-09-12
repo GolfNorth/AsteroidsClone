@@ -1,11 +1,7 @@
 ﻿namespace AsteroidsClone
 {
-    public sealed class Asteroid : Actor<AsteroidModel, AsteroidView, AsteroidData>, IDestroyable, IPoolable, IFixedTickable
+    public sealed class Asteroid : Actor<AsteroidModel, AsteroidView, AsteroidData>, IDestroyable, IPoolable, ITickable, IFixedTickable
     {
-        public Asteroid(World world) : base(world)
-        {
-        }
-
         public AsteroidSize Size
         {
             get => Model.Size;
@@ -13,6 +9,12 @@
         }
 
         public CircleShape Shape => Model.Shape;
+
+        public bool IsDestroyed => Model.IsDestroyed;
+
+        public Asteroid(World world) : base(world)
+        {
+        }
 
         public void Disable()
         {
@@ -22,6 +24,14 @@
         public void Enable()
         {
             Model.IsActive = true;
+
+            Revive();
+        }
+
+        public void Tick()
+        {
+            if (IsDestroyed && View.IsDestroyed)
+                World.AsteroidsController.DestroyAsteroid(this);
         }
 
         public void FixedTick()
@@ -31,9 +41,18 @@
             Model.Move();
         }
 
+        public void Revive()
+        {
+            Model.Revive();
+
+            World.NotificationService.Notify(NotificationType.AsteroidSpawned, this);
+        }
+
         public void Destroy()
         {
-            World.AsteroidsController.DestroyAsteroid(this);
+            Model.Destroy();
+
+            World.NotificationService.Notify(NotificationType.AsteroidDestroyed, this);
         }
 
         public void RandomizeAngleAndSpeed()

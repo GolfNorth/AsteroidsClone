@@ -157,13 +157,91 @@ namespace AsteroidsClone
             return false;
         }
 
-        public void RotatePolygon(ref PolygonShape polygon, float angle)
+        public void TranslateCircle(ref CircleShape circle, Vector2 deltaPosition)
         {
+            circle.Center += deltaPosition;
+        }
+
+        public void RotateLine(ref LineShape line, float deltaAngle)
+        {
+            var cos = Mathf.Cos(deltaAngle * Mathf.Deg2Rad);
+            var sin = Mathf.Sin(deltaAngle * Mathf.Deg2Rad);
+            var xa = line.PointA.x - line.Center.x;
+            var ya = line.PointA.y - line.Center.y;
+            var xb = line.PointB.x - line.Center.x;
+            var yb = line.PointB.y - line.Center.y;
+
+            line.PointA.x = line.Center.x + xa * cos - ya * sin;
+            line.PointA.y = line.Center.x + xa * sin + ya * cos;
+            line.PointB.x = line.Center.x + xb * cos - yb * sin;
+            line.PointB.y = line.Center.x + xb * sin + yb * cos;
+        }
+
+        public void TranslateLine(ref LineShape line, Vector2 deltaPosition)
+        {
+            line.Center += deltaPosition;
+            line.PointA += deltaPosition;
+            line.PointB += deltaPosition;
+        }
+
+        public void RotatePolygon(ref PolygonShape polygon, float deltaAngle)
+        {
+            var cos = Mathf.Cos(deltaAngle * Mathf.Deg2Rad);
+            var sin = Mathf.Sin(deltaAngle * Mathf.Deg2Rad);
+
             for (var i = 0; i < polygon.Points.Length; i++)
             {
-                polygon.Points[i].x = polygon.Points[i].x * Mathf.Cos(angle) - polygon.Points[i].y * Mathf.Sin(angle);
-                polygon.Points[i].y = polygon.Points[i].x * Mathf.Sin(angle) + polygon.Points[i].y * Mathf.Cos(angle);
+                var x = polygon.Points[i].x - polygon.Center.x;
+                var y = polygon.Points[i].y - polygon.Center.y;
+
+                polygon.Points[i].x = polygon.Center.x + x * cos - y * sin;
+                polygon.Points[i].y = polygon.Center.y + x * sin + y * cos;
             }
+        }
+
+        public void TranslatePolygon(ref PolygonShape polygon, Vector2 deltaPosition)
+        {
+            polygon.Center += deltaPosition;
+
+            for (var i = 0; i < polygon.Points.Length; i++)
+            {
+                polygon.Points[i] += deltaPosition;
+            }
+        }
+
+        public CircleShape CloneCircle(CircleShape original)
+        {
+            return new CircleShape
+            {
+                Radius = original.Radius,
+                Center = new Vector2 (original.Center.x, original.Center.y)
+            };
+        }
+
+        public LineShape CloneLine(LineShape original)
+        {
+            return new LineShape
+            {
+                PointA = new Vector2(original.PointA.x, original.PointA.y),
+                PointB = new Vector2(original.PointB.x, original.PointB.y),
+                Center = new Vector2(original.Center.x, original.Center.y)
+            };
+        }
+
+        public PolygonShape ClonePolygon(PolygonShape original)
+        {
+            var clone = new PolygonShape
+            {
+                Points = new Vector2[original.Points.Length],
+                Center = new Vector2(original.Center.x, original.Center.y)
+            };
+
+            for(var i = 0; i < original.Points.Length; i++)
+            {
+                clone.Points[i] = new Vector2(original.Points[i].x, original.Points[i].y);
+            }
+
+            return clone;
         }
     }
 }

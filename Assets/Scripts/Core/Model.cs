@@ -13,9 +13,9 @@ namespace AsteroidsClone
 
         public Action IsActiveChanged;
         public Action ViewModeChanged;
-        public Action PositionChanged;
+        public Action<Vector2> PositionChanged;
         public Action VelocityChanged;
-        public Action AngleChanged;
+        public Action<float> AngleChanged;
         public Action SpeedChanged;
 
         public Model(World world) : base(world)
@@ -54,9 +54,11 @@ namespace AsteroidsClone
             {
                 if (_position == value) return;
 
+                var deltaPosition = value - _position;
+
                 _position = value;
 
-                PositionChanged?.Invoke();
+                PositionChanged?.Invoke(deltaPosition);
             }
         }
 
@@ -80,9 +82,11 @@ namespace AsteroidsClone
             {
                 if (_angle == value) return;
 
+                var deltaAngle = value - _angle;
+
                 _angle = value;
 
-                AngleChanged?.Invoke();
+                AngleChanged?.Invoke(deltaAngle);
             }
         }
 

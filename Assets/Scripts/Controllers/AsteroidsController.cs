@@ -4,7 +4,7 @@ namespace AsteroidsClone
 {
     public class AsteroidsController : Resident, ITickable, IFixedTickable
     {
-        private readonly ObjectPool<Asteroid> asteroidsPool;
+        private readonly ObjectPool<Asteroid> _asteroidsPool;
         private float _spawnDelay;
         private float _spawnTimer;
 
@@ -12,7 +12,7 @@ namespace AsteroidsClone
         {
             _spawnDelay = ((AsteroidData) World.Data[typeof(AsteroidData)]).SpawnDelay;
 
-            asteroidsPool = new ObjectPool<Asteroid>
+            _asteroidsPool = new ObjectPool<Asteroid>
             {
                 GetInstance = () => { return new Asteroid(World); }
             };
@@ -20,7 +20,7 @@ namespace AsteroidsClone
             SpawnAsteroid();
 
             World.UpdateService.Add(this);
-            World.Asteroids = asteroidsPool.All;
+            World.Asteroids = _asteroidsPool.All;
         }
 
         public void Tick()
@@ -44,7 +44,7 @@ namespace AsteroidsClone
 
         public void SpawnAsteroid(AsteroidSize size = AsteroidSize.None, Vector2 position = new Vector2())
         {
-            var asteroid = asteroidsPool.Acquire();
+            var asteroid = _asteroidsPool.Acquire();
 
             if (size == AsteroidSize.None)
                 asteroid.RandomizeSize();
@@ -71,7 +71,7 @@ namespace AsteroidsClone
                 SpawnAsteroid(AsteroidSize.Small, asteroid.Position);
             }
             
-            asteroidsPool.Release(asteroid);
+            _asteroidsPool.Release(asteroid);
         }
     }
 }

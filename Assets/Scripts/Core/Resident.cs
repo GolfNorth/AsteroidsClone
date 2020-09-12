@@ -2,13 +2,13 @@
 {
     public abstract class Resident
     {
-        private readonly World world;
+        private readonly World _world;
 
         public Resident (World world)
         {
-            this.world = world;
+            this._world = world;
         }
 
-        protected World World => world;
+        protected World World => _world;
     }
 }
