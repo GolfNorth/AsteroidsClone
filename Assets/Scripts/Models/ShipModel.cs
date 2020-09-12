@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace AsteroidsClone
 {
-    public sealed class ShipModel : Model, IDestroyable
+    public sealed class ShipModel : Model, INotifyDestroyable
     {
         #region Constructor
 
@@ -26,13 +26,13 @@ namespace AsteroidsClone
         private float _offset;
         private PolygonShape _shape;
 
-        public Action Destroyed;
-
         #endregion
 
         #region Properties
 
         public PolygonShape Shape => _shape;
+
+        public Action Destroyed { get; set; }
 
         public bool IsDestroyed { get; set; }
 

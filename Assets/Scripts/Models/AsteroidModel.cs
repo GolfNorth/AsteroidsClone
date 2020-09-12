@@ -4,7 +4,7 @@ using Random = UnityEngine.Random;
 
 namespace AsteroidsClone
 {
-    public sealed class AsteroidModel : Model, IDestroyable
+    public sealed class AsteroidModel : Model, INotifyDestroyable
     {
         #region Constructor
 
@@ -24,8 +24,6 @@ namespace AsteroidsClone
         private CircleShape _shape;
         private AsteroidSize _size;
 
-        public Action Destroyed;
-
         #endregion
 
         #region Properties
@@ -44,6 +42,8 @@ namespace AsteroidsClone
         }
 
         public CircleShape Shape => _shape;
+
+        public Action Destroyed { get; set; }
 
         public float Radius { get; set; }
 
