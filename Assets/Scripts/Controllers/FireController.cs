@@ -27,13 +27,6 @@ namespace AsteroidsClone
 
         public void Tick()
         {
-            for (var i = 0; i < World.Bullets.Count; i++)
-            {
-                if (World.Bullets[i] is null || !World.Bullets[i].IsActive) continue;
-
-                World.Bullets[i].FixedTick();
-            }
-
             _fireDelay += Time.deltaTime;
         }
 

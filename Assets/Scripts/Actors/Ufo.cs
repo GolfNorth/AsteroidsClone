@@ -30,7 +30,7 @@
 
         public void FixedTick()
         {
-            if (!IsActive) return;
+            if (!IsActive || IsDestroyed || World.Ship.IsDestroyed) return;
 
             Model.Move();
         }

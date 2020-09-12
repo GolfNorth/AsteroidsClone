@@ -21,6 +21,7 @@ namespace AsteroidsClone
 
             World.UpdateService.Add(this);
             World.Asteroids = _asteroidsPool.All;
+            World.NotificationService.Notification += SpawnSmaller;
         }
 
         public void Tick()
@@ -31,6 +32,8 @@ namespace AsteroidsClone
 
                 World.Asteroids[i].Tick();
             }
+
+            if (World.Ship.IsDestroyed) return;
 
             _spawnTimer += Time.deltaTime;
 
@@ -68,18 +71,26 @@ namespace AsteroidsClone
             asteroid.RandomizeAngleAndSpeed();
         }
 
-        public void DestroyAsteroid(Asteroid asteroid)
+        public void SpawnSmaller(NotificationType notificationType, object obj)
         {
+            if (notificationType != NotificationType.AsteroidDestroyed) return;
+
+            var asteroid = (Asteroid)obj;
+
             if (asteroid.Size == AsteroidSize.Large)
             {
                 SpawnAsteroid(AsteroidSize.Middle, asteroid.Position);
                 SpawnAsteroid(AsteroidSize.Middle, asteroid.Position);
-            } else if (asteroid.Size == AsteroidSize.Middle)
+            }
+            else if (asteroid.Size == AsteroidSize.Middle)
             {
                 SpawnAsteroid(AsteroidSize.Small, asteroid.Position);
                 SpawnAsteroid(AsteroidSize.Small, asteroid.Position);
             }
-            
+        }
+
+        public void DestroyAsteroid(Asteroid asteroid)
+        {
             _asteroidsPool.Release(asteroid);
         }
     }

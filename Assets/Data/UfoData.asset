@@ -17,8 +17,9 @@ MonoBehaviour:
   spawnDelay: 5
   shape:
     Points:
-    - {x: 2.5, y: 0}
-    - {x: 0, y: -4}
-    - {x: -2.5, y: 0}
-    - {x: 0, y: 4}
+    - {x: 1, y: 0}
+    - {x: 0, y: -0.5}
+    - {x: -1, y: 0}
+    - {x: 0, y: 0.5}
+    Center: {x: 0, y: 0}
   speed: 2.5

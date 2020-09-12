@@ -16,11 +16,11 @@ MonoBehaviour:
   spritePrefab: {fileID: 1695236836335579771, guid: 067906214bd26384ab4b1a7d720e2980, type: 3}
   shape:
     Points:
-    - {x: 4, y: 0}
-    - {x: -4, y: -2.5}
-    - {x: -4, y: 2.5}
+    - {x: 0.5, y: 0}
+    - {x: -0.5, y: -0.25}
+    - {x: -0.5, y: 0.25}
     Center: {x: 0, y: 0}
   angularSpeed: 180
   stopSpeed: 0.6
   speed: 8
-  inertia: 0.8
+  inertia: 0.6

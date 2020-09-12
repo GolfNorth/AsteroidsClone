@@ -36,7 +36,7 @@
 
         public void FixedTick()
         {
-            if (!IsActive || Model.Size == AsteroidSize.None) return;
+            if (!IsActive || IsDestroyed || Model.Size == AsteroidSize.None) return;
 
             Model.Move();
         }

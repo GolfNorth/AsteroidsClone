@@ -24,6 +24,7 @@ namespace AsteroidsClone
         private AsteroidsController _asteroidsController;
         private UfosController _ufosController;
         private FireController _fireController;
+        private CollisionController _collisionController;
 
         public ViewMode ViewMode { get; set; }
 
@@ -46,6 +47,7 @@ namespace AsteroidsClone
         public AsteroidsController AsteroidsController => _asteroidsController;
         public UfosController UfosController => _ufosController;
         public FireController FireController => _fireController;
+        public CollisionController CollisionController => _collisionController;
 
         private void Awake()
         {
@@ -83,6 +85,7 @@ namespace AsteroidsClone
             _asteroidsController = new AsteroidsController(this);
             _ufosController = new UfosController(this);
             _fireController = new FireController(this);
+            _collisionController = new CollisionController(this);
         }
     }
 }

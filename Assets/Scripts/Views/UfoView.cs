@@ -13,12 +13,17 @@ namespace AsteroidsClone
         {
             base.OnEnable();
 
-            IsDestroyed = false;
+            IsDestroyed = Model is null ? false : Model.IsDestroyed;
         }
 
         protected override void OnModelChanged()
         {
-            Model.Destroyed += () => { StartCoroutine(Destroy()); };
+            Model.Destroyed += () => {
+                if (gameObject.activeSelf)
+                    StartCoroutine(Destroy());
+                else
+                    IsDestroyed = true;
+            };
         }
 
         private IEnumerator Destroy()

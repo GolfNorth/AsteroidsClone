@@ -17,8 +17,6 @@ namespace AsteroidsClone
                 GetInstance = () => { return new Ufo(World); }
             };
 
-            SpawnUfo();
-
             World.UpdateService.Add(this);
             World.Ufos = _ufosPool.All;
         }
@@ -31,6 +29,8 @@ namespace AsteroidsClone
 
                 World.Ufos[i].Tick();
             }
+
+            if (World.Ship.IsDestroyed) return;
 
             _spawnTimer += Time.deltaTime;
 
