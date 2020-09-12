@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c462ee8f055959449bc5eb8a834e73a, type: 3}
   m_Name: UfoData
   m_EditorClassIdentifier: 
-  polygonalPrefab: {fileID: 0}
-  spritePrefab: {fileID: 0}
-  speed: 0
+  polygonalPrefab: {fileID: 1695236836335579771, guid: 067906214bd26384ab4b1a7d720e2980, type: 3}
+  spritePrefab: {fileID: 1695236836335579771, guid: 067906214bd26384ab4b1a7d720e2980, type: 3}
+  spawnDelay: 5
+  shape:
+    Points:
+    - {x: 2.5, y: 0}
+    - {x: 0, y: -4}
+    - {x: -2.5, y: 0}
+    - {x: 0, y: 4}
+  speed: 2.5

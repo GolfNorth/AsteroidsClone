@@ -12,15 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff19c813976270d4084a39193dadac49, type: 3}
   m_Name: AsteroidData
   m_EditorClassIdentifier: 
-  polygonalPrefab: {fileID: 0}
-  spritePrefab: {fileID: 0}
+  polygonalPrefab: {fileID: 1465353027851705698, guid: e08e15c4d3d7558459b660b45cd14c58, type: 3}
+  spritePrefab: {fileID: 1465353027851705698, guid: e08e15c4d3d7558459b660b45cd14c58, type: 3}
+  spawnDelay: 2
   settings:
-  - AsteroidSize: 2
-    minSpeed: 5
-    maxSpeed: 7
   - AsteroidSize: 1
-    minSpeed: 3
-    maxSpeed: 5
-  - AsteroidSize: 0
-    minSpeed: 1
-    maxSpeed: 3
+    Radius: 1
+    MinSpeed: 1
+    MaxSpeed: 2
+  - AsteroidSize: 2
+    Radius: 0.75
+    MinSpeed: 2
+    MaxSpeed: 3
+  - AsteroidSize: 3
+    Radius: 0.5
+    MinSpeed: 3
+    MaxSpeed: 4

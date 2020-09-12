@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e129c06c2f05862489891fc4ce0adb3d, type: 3}
   m_Name: ShipData
   m_EditorClassIdentifier: 
-  polygonalPrefab: {fileID: 0}
-  spritePrefab: {fileID: 0}
-  body:
-  - {x: 0, y: -5}
-  - {x: -2.5, y: 2.5}
-  - {x: 2.5, y: 2.5}
-  acceleration: 2
-  angularSpeed: 0.5
-  maximumSpeed: 20
+  polygonalPrefab: {fileID: 1695236836335579771, guid: 067906214bd26384ab4b1a7d720e2980, type: 3}
+  spritePrefab: {fileID: 1695236836335579771, guid: 067906214bd26384ab4b1a7d720e2980, type: 3}
+  shape:
+    Points:
+    - {x: 4, y: 0}
+    - {x: -4, y: -2.5}
+    - {x: -4, y: 2.5}
+  angularSpeed: 180
+  stopSpeed: 0.6
+  speed: 8
+  inertia: 0.8

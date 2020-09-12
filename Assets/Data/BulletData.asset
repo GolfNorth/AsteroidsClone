@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fd14216b89b0bf45bdb2fd054393a48, type: 3}
   m_Name: BulletData
   m_EditorClassIdentifier: 
-  polygonalPrefab: {fileID: 0}
-  spritePrefab: {fileID: 0}
-  range: 0
-  speed: 0
+  polygonalPrefab: {fileID: 1465353027851705698, guid: e08e15c4d3d7558459b660b45cd14c58, type: 3}
+  spritePrefab: {fileID: 1465353027851705698, guid: e08e15c4d3d7558459b660b45cd14c58, type: 3}
+  range: 10
+  speed: 5
+  rapidity: 0.2

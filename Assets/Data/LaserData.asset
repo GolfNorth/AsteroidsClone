@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd7e75e4ef5dbb4982c42a84ba49128, type: 3}
   m_Name: LaserData
   m_EditorClassIdentifier: 
-  polygonalPrefab: {fileID: 0}
-  spritePrefab: {fileID: 0}
-  range: 0
+  polygonalPrefab: {fileID: 1465353027851705698, guid: e08e15c4d3d7558459b660b45cd14c58, type: 3}
+  spritePrefab: {fileID: 1465353027851705698, guid: e08e15c4d3d7558459b660b45cd14c58, type: 3}
+  range: 10
+  duration: 3
+  cooldown: 5
