@@ -36,6 +36,17 @@ namespace AsteroidsClone
             }
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                if (world.ViewMode == ViewMode.Polygonal)
+                    world.ViewModeController.SwitchViewMode(ViewMode.Sprite);
+                else
+                    world.ViewModeController.SwitchViewMode(ViewMode.Polygonal);
+            }
+        }
+
         private void LateUpdate()
         {
             gameover.enabled = world.Ship.IsDestroyed;
