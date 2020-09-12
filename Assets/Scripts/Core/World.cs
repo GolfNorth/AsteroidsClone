@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +11,7 @@ namespace AsteroidsClone
         [SerializeField] private AsteroidData asteroidData;
         [SerializeField] private BulletData bulletData;
         [SerializeField] private LaserData laserData;
+        [SerializeField] private UserInterfaceView userInterfaceView;
 
         private UpdateService _updateService;
         private PhysicsService _physicsService;
@@ -58,6 +58,8 @@ namespace AsteroidsClone
             InitializeData();
             InitializeServices();
             InitializeControllers();
+
+            userInterfaceView.gameObject.SetActive(true);
         }
 
         private void InitializeData()

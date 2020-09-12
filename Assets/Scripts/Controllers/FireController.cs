@@ -11,6 +11,8 @@ namespace AsteroidsClone
         private float _laserCooldown;
         private float _laserDelay;
 
+        public bool IsLaserReady => !World.Laser.IsActive && _laserDelay >= _laserCooldown;
+
         public FireController(World world) : base(world)
         {
             var bulletData = (BulletData)World.Data[typeof(BulletData)];
