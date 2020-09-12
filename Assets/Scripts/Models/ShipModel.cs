@@ -47,8 +47,6 @@ namespace AsteroidsClone
             Position = Vector2.zero;
             Velocity = Vector2.zero;
             Angle = 0;
-
-            _shape = _data.Shape;
         }
 
         public void Destroy()

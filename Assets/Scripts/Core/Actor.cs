@@ -31,6 +31,9 @@ namespace AsteroidsClone
             var gameObject = viewMode == ViewMode.Polygonal
                 ? GameObject.Instantiate(Data.SpritePrefab)
                 : GameObject.Instantiate(Data.PolygonalPrefab);
+
+            gameObject.name = this.GetType().Name;
+
             var view = gameObject.AddComponent<TView>();
             view.ViewMode = viewMode;
             view.Model = Model;

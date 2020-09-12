@@ -13,6 +13,7 @@
         {
             switch (notificationType)
             {
+                case NotificationType.UfoDestroyed:
                 case NotificationType.AsteroidDestroyed:
                     _score++;
                     break;

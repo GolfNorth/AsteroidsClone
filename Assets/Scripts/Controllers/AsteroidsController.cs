@@ -25,6 +25,13 @@ namespace AsteroidsClone
 
         public void Tick()
         {
+            for (var i = 0; i < World.Asteroids.Count; i++)
+            {
+                if (World.Asteroids[i] is null || !World.Asteroids[i].IsActive) continue;
+
+                World.Asteroids[i].Tick();
+            }
+
             _spawnTimer += Time.deltaTime;
 
             if (_spawnTimer < _spawnDelay) return;
@@ -38,7 +45,9 @@ namespace AsteroidsClone
         {
             for (var i = 0; i < World.Asteroids.Count; i++)
             {
-                World.Asteroids[i]?.FixedTick();
+                if (World.Asteroids[i] is null || !World.Asteroids[i].IsActive) continue;
+
+                World.Asteroids[i].FixedTick();
             }
         }
 

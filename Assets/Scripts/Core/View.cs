@@ -15,7 +15,7 @@ namespace AsteroidsClone
                 _model = value;
 
                 _model.IsActiveChanged += () => gameObject.SetActive(_model.IsActive && _model.ViewMode == ViewMode);
-                _model.ViewModeChanged += () => gameObject.SetActive(_model.ViewMode == ViewMode);
+                _model.ViewModeChanged += () => gameObject.SetActive(_model.IsActive && _model.ViewMode == ViewMode);
                 _model.PositionChanged += (_) => transform.position = _model.Position;
                 _model.AngleChanged += (_) => transform.rotation = Quaternion.Euler(0, 0, _model.Angle);
 

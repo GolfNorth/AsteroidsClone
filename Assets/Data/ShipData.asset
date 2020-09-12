@@ -19,6 +19,7 @@ MonoBehaviour:
     - {x: 4, y: 0}
     - {x: -4, y: -2.5}
     - {x: -4, y: 2.5}
+    Center: {x: 0, y: 0}
   angularSpeed: 180
   stopSpeed: 0.6
   speed: 8

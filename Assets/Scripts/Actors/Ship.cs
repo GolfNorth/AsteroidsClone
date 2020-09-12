@@ -26,23 +26,28 @@
 
         public void FixedTick()
         {
-            if (IsDestroyed) return;
+            if (!IsActive || IsDestroyed) return;
 
             Model.Move(World.InputService.Translation, World.InputService.Rotation);
         }
 
         public void Fire()
         {
+            if (!IsActive || IsDestroyed) return;
+
             World.FireController.Fire(Model.Position, Model.Angle);
         }
 
         public void AltFire()
         {
+            if (!IsActive || IsDestroyed) return;
+
             World.FireController.Fire(Model.Position, Model.Angle);
         }
 
         public void Revive()
         {
+            Model.IsActive = true;
             Model.Revive();
 
             World.NotificationService.Notify(NotificationType.ShipSpawned, this);
