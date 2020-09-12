@@ -28,7 +28,13 @@ namespace AsteroidsClone
 
                 if (Velocity.magnitude > Data.Speed)
                     Velocity = Velocity.normalized * Data.Speed;
-            } 
+            }
+            else
+            {
+                Velocity = Vector2.Distance(Velocity, Vector2.zero) > Data.StopSpeed
+                    ? Vector2.Lerp(Velocity, Vector2.zero, (1 - Data.Inertia) * Time.fixedDeltaTime)
+                    : Vector2.zero;
+            }
 
             var position = Position + Velocity * Time.fixedDeltaTime;
 
