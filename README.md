@@ -1,8 +1,32 @@
-﻿# Asteroids
+﻿# Asteroids Clone
 
-Ссылка на скачивание: [Asteroids - Windows x86 / x64](https://yadi.sk/d/_9B6qeJisItJwQ)
+## Диаграмма классов
 
-### Описание
+[![Диаграмма классов](https://github.com/GolfNorth/AsteroidsClone/blob/master/Diagramms/Диаграмма%20классов.png?raw=true)](https://github.com/GolfNorth/AsteroidsClone/blob/master/Diagramms/Диаграмма%20классов.png?raw=true)
+
+## Диаграмма последовательности
+
+[![Диаграмма последовательности](https://github.com/GolfNorth/AsteroidsClone/blob/master/Diagramms/Диаграмма%20последовательности.png?raw=true)](https://github.com/GolfNorth/AsteroidsClone/blob/master/Diagramms/Диаграмма%20последовательности.png?raw=true)
+
+## Ссылка на скачивание
+
+[Asteroids - Windows x86 / x64](https://yadi.sk/d/_9B6qeJisItJwQ)
+
+## Управление
+
+**UpArrow** - Движение вперед
+
+**LeftArrow** - Вращение против часовой стрелки
+
+**RightArrow** - Вращение по часовой стрелке
+
+**Space** - Выстрел пулями
+
+**Shift** - Активировать лазер
+
+**Tab** - Сменить представление
+
+## Описание
 
 [![YouTube link](http://img.youtube.com/vi/VHMaqVlSy9Y/0.jpg)](https://www.youtube.com/watch?v=VHMaqVlSy9Y)
 
