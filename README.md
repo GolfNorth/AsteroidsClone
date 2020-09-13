@@ -10,7 +10,7 @@
 
 ## Ссылка на скачивание
 
-[Asteroids - Windows x86 / x64](https://yadi.sk/d/_9B6qeJisItJwQ)
+[Asteroids - Windows x86 / x64](https://github.com/GolfNorth/AsteroidsClone/releases/download/1.0/Asteroids.zip)
 
 ## Управление
 
