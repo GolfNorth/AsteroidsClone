@@ -8,7 +8,7 @@ namespace AsteroidsCore
         #region Fields
 
         public PolygonShape shape;
-        
+
         public float spawnDelay;
 
         public float speed;

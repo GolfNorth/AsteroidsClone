@@ -14,10 +14,14 @@ namespace AsteroidsView
 
         [SerializeField] private AsteroidData.AsteroidUnitData[] asteroidSize;
 
+        #endregion
+
+        #region Methods
+        
         private void OnEnable()
         {
             data.UnitData = new Dictionary<AsteroidSize, AsteroidData.AsteroidUnitData>();
-            
+
             foreach (var s in asteroidSize)
             {
                 if (data.UnitData.ContainsKey(s.asteroidSize)) continue;

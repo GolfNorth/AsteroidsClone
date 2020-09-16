@@ -7,7 +7,7 @@ namespace AsteroidsView
     public class UserInterfaceManager : Manager
     {
         #region Fields
-        
+
         private Text _score;
         private Text _laser;
         private Text _gameover;
@@ -25,14 +25,14 @@ namespace AsteroidsView
             _score.enabled = true;
             _laser.enabled = false;
             _gameover.enabled = false;
-            
+
             Context.World.NotificationService.Notification += OnNotification;
         }
 
         private void LateUpdate()
         {
             if (Context is null) return;
-            
+
             _gameover.enabled = Context.World.Ship.IsDestroyed;
             _laser.enabled = Context.World.FireController.IsLaserReady;
         }
@@ -40,7 +40,7 @@ namespace AsteroidsView
         private void OnDisable()
         {
             if (Context is null) return;
-            
+
             Context.World.NotificationService.Notification -= OnNotification;
         }
 

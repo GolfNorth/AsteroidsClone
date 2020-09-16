@@ -75,11 +75,11 @@ namespace AsteroidsCore
         {
             get
             {
-                var angle = (float)Math.PI * Angle / 180f;
+                var angle = (float) Math.PI * Angle / 180f;
                 var direction = new Vector2
                 {
-                    x = (float)Math.Cos(angle),
-                    y = (float)Math.Sin(angle)
+                    x = (float) Math.Cos(angle),
+                    y = (float) Math.Sin(angle)
                 };
 
                 return Vector2.Normalize(direction);

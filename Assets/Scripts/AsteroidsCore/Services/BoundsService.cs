@@ -30,7 +30,7 @@ namespace AsteroidsCore
         private void RecalculateBounds()
         {
             TopBound = World.OffsetY;
-            BottomBound = - World.Height + World.OffsetY;
+            BottomBound = -World.Height + World.OffsetY;
             LeftBound = World.OffsetX;
             RightBound = World.Width + World.OffsetX;
         }
@@ -60,20 +60,20 @@ namespace AsteroidsCore
             switch (bound)
             {
                 case BoundSide.Top:
-                    position.x = LeftBound + (float)World.Random.NextDouble() * World.Width;
+                    position.x = LeftBound + (float) World.Random.NextDouble() * World.Width;
                     position.y = TopBound + offset;
                     break;
                 case BoundSide.Bottom:
-                    position.x =  LeftBound + (float)World.Random.NextDouble() * World.Width;
+                    position.x = LeftBound + (float) World.Random.NextDouble() * World.Width;
                     position.y = BottomBound - offset;
                     break;
                 case BoundSide.Left:
                     position.x = LeftBound - offset;
-                    position.y = BottomBound + (float)World.Random.NextDouble() * World.Height;
+                    position.y = BottomBound + (float) World.Random.NextDouble() * World.Height;
                     break;
                 case BoundSide.Right:
                     position.x = RightBound + offset;
-                    position.y = BottomBound + (float)World.Random.NextDouble() * World.Height;
+                    position.y = BottomBound + (float) World.Random.NextDouble() * World.Height;
                     break;
             }
 

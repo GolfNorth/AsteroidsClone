@@ -74,8 +74,8 @@ namespace AsteroidsCore
 
         public void RandomizeAngleAndSpeed()
         {
-            Angle = (float)World.Random.NextDouble() * 360f;
-            Speed = _data.UnitData[Size].minSpeed + (float)World.Random.NextDouble() 
+            Angle = (float) World.Random.NextDouble() * 360f;
+            Speed = _data.UnitData[Size].minSpeed + (float) World.Random.NextDouble()
                 * (_data.UnitData[Size].maxSpeed - _data.UnitData[Size].minSpeed);
 
             Velocity = Direction * Speed;

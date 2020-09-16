@@ -45,26 +45,26 @@ namespace AsteroidsView
         protected virtual void LateUpdate()
         {
             if (Model.IsDestroyed) return;
-            
-            if (_spriteRenderer != null && !_spriteRenderer.enabled) 
+
+            if (_spriteRenderer != null && !_spriteRenderer.enabled)
                 _spriteRenderer.enabled = true;
-            
-            if (_meshRenderer != null && !_meshRenderer.enabled) 
+
+            if (_meshRenderer != null && !_meshRenderer.enabled)
                 _meshRenderer.enabled = true;
         }
 
         private IEnumerator DestroyCoroutine()
         {
             IsDestroyed = false;
-            
+
             DestroyBegin();
-            
+
             if (_particleSystem != null) _particleSystem.Play();
-            
+
             if (_spriteRenderer != null) _spriteRenderer.enabled = false;
-            
+
             if (_meshRenderer != null) _meshRenderer.enabled = false;
-            
+
             yield return new WaitForSeconds(destroyDelay);
 
             IsDestroyed = true;
@@ -72,7 +72,6 @@ namespace AsteroidsView
 
         protected virtual void DestroyBegin()
         {
-            
         }
 
         #endregion

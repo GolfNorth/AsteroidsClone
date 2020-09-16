@@ -10,7 +10,7 @@ namespace AsteroidsView
         private LineRenderer _lineRenderer;
 
         #endregion
-        
+
         #region Methods
 
         private void Awake()

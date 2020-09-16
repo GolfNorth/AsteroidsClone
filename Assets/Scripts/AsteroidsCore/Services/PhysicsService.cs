@@ -10,7 +10,7 @@ namespace AsteroidsCore
         {
             var distX = point.x - circle.Center.x;
             var distY = point.y - circle.Center.y;
-            var distance = (float)Math.Sqrt(distX * distX + distY * distY);
+            var distance = (float) Math.Sqrt(distX * distX + distY * distY);
 
             return distance <= circle.Radius;
         }
@@ -50,11 +50,11 @@ namespace AsteroidsCore
 
             var distX = line.PointA.x - line.PointB.x;
             var distY = line.PointA.y - line.PointB.y;
-            var len = (float)Math.Sqrt(distX * distX + distY * distY);
+            var len = (float) Math.Sqrt(distX * distX + distY * distY);
 
             var dot = ((circle.Center.x - line.PointA.x) * (line.PointB.x - line.PointA.x)
                        + (circle.Center.y - line.PointA.y) * (line.PointB.y - line.PointA.y))
-                      / (float)Math.Pow(len, 2);
+                      / (float) Math.Pow(len, 2);
 
             var closestX = line.PointA.x + dot * (line.PointB.x - line.PointA.x);
             var closestY = line.PointA.y + dot * (line.PointB.y - line.PointA.y);
@@ -65,7 +65,7 @@ namespace AsteroidsCore
 
             distX = closestX - circle.Center.x;
             distY = closestY - circle.Center.y;
-            var distance = (float)Math.Sqrt(distX * distX + distY * distY);
+            var distance = (float) Math.Sqrt(distX * distX + distY * distY);
 
             return distance <= circle.Radius;
         }
@@ -164,10 +164,10 @@ namespace AsteroidsCore
 
         public void RotateLine(ref LineShape line, float deltaAngle)
         {
-            deltaAngle = (float)Math.PI * deltaAngle / 180f;
-            
-            var cos = (float)Math.Cos(deltaAngle);
-            var sin = (float)Math.Sin(deltaAngle);
+            deltaAngle = (float) Math.PI * deltaAngle / 180f;
+
+            var cos = (float) Math.Cos(deltaAngle);
+            var sin = (float) Math.Sin(deltaAngle);
 
             var xa = line.PointA.x - line.Center.x;
             var ya = line.PointA.y - line.Center.y;
@@ -189,10 +189,10 @@ namespace AsteroidsCore
 
         public void RotatePolygon(ref PolygonShape polygon, float deltaAngle)
         {
-            deltaAngle = (float)Math.PI * deltaAngle / 180f;
-            
-            var cos = (float)Math.Cos(deltaAngle);
-            var sin = (float)Math.Sin(deltaAngle);
+            deltaAngle = (float) Math.PI * deltaAngle / 180f;
+
+            var cos = (float) Math.Cos(deltaAngle);
+            var sin = (float) Math.Sin(deltaAngle);
 
             for (var i = 0; i < polygon.Points.Length; i++)
             {

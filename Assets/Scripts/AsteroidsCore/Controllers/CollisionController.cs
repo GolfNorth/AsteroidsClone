@@ -34,7 +34,7 @@
                     {
                         asteroid.Destroy();
                         World.FireController.DestroyBullet(bullet);
-                        
+
                         break;
                     }
                 }
@@ -66,9 +66,7 @@
 
                     if (asteroid.IsActive && !asteroid.IsDestroyed &&
                         World.PhysicsService.LineAndCircleContact(laser.Shape, asteroid.Shape))
-                    {
                         asteroid.Destroy();
-                    }
                 }
 
                 for (u = 0; u < World.Ufos.Count; u++)
@@ -77,9 +75,7 @@
 
                     if (ufo.IsActive && !ufo.IsDestroyed &&
                         World.PhysicsService.PolygonAndLineContact(ufo.Shape, laser.Shape))
-                    {
                         ufo.Destroy();
-                    }
                 }
             }
 
@@ -92,13 +88,12 @@
                 {
                     asteroid.Destroy();
                     ship.Destroy();
-                        
+
                     break;
                 }
             }
 
             if (ship.IsActive && !ship.IsDestroyed)
-            {
                 for (u = 0; u < World.Ufos.Count; u++)
                 {
                     var ufo = World.Ufos[u];
@@ -108,11 +103,10 @@
                     {
                         ufo.Destroy();
                         ship.Destroy();
-                        
+
                         break;
                     }
                 }
-            }
         }
 
         #endregion

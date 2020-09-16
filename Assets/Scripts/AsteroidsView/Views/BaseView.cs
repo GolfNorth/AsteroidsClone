@@ -13,7 +13,7 @@ namespace AsteroidsView
         #endregion
 
         #region Properties
-        
+
         public ViewMode ViewMode { get; set; }
         public Context Context { get; set; }
 
@@ -22,9 +22,11 @@ namespace AsteroidsView
             get => gameObject.activeSelf;
             set => gameObject.SetActive(value);
         }
+
         public bool IsDestroyed { get; protected set; }
         public Vector2 Position { get; set; }
         public float Rotation { get; set; }
+
         public TModel Model
         {
             protected get => _model;
@@ -60,7 +62,7 @@ namespace AsteroidsView
         protected virtual void OnModelChanged()
         {
         }
-        
+
         public virtual void Revive()
         {
         }

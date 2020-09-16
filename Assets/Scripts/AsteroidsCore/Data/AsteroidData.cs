@@ -18,9 +18,9 @@ namespace AsteroidsCore
         }
 
         #endregion
-        
+
         #region Fields
-        
+
         public float spawnDelay;
         public Dictionary<AsteroidSize, AsteroidUnitData> UnitData;
 

@@ -5,6 +5,26 @@ namespace AsteroidsCore
 {
     public sealed class World : ITickable, IFixedTickable
     {
+        #region Constructor
+
+        public World(float width, float height, DataStorage dataStorage, ViewFactory viewFactory, float offsetX = 0,
+            float offsetY = 0)
+        {
+            Width = width;
+            Height = height;
+            OffsetX = offsetX;
+            OffsetY = offsetY;
+            DataStorage = dataStorage;
+            ViewFactory = viewFactory;
+
+            Random = new Random();
+
+            InitializeServices();
+            InitializeControllers();
+        }
+
+        #endregion
+
         #region Fields
 
         public Action OnTick;
@@ -41,25 +61,6 @@ namespace AsteroidsCore
 
         #endregion
 
-        #region Constructor
-
-        public World(float width, float height, DataStorage dataStorage, ViewFactory viewFactory, float offsetX = 0, float offsetY = 0)
-        {
-            Width = width;
-            Height = height;
-            OffsetX = offsetX;
-            OffsetY = offsetY;
-            DataStorage = dataStorage;
-            ViewFactory = viewFactory;
-            
-            Random = new Random();
-            
-            InitializeServices();
-            InitializeControllers();
-        }
-
-        #endregion
-
         #region Methods
 
         private void InitializeServices()
@@ -80,22 +81,22 @@ namespace AsteroidsCore
             FireController = new FireController(this);
             CollisionController = new CollisionController(this);
         }
-
-        #endregion
+        
+        public void FixedTick()
+        {
+            OnFixedTick?.Invoke();
+        }
 
         public void Tick()
         {
             OnTick?.Invoke();
         }
-        
+
         public void LateTick()
         {
             OnLateTick?.Invoke();
         }
 
-        public void FixedTick()
-        {
-            OnFixedTick?.Invoke();
-        }
+        #endregion
     }
 }

@@ -20,15 +20,15 @@
                     return null;
             }
         }
-        
+
         public abstract IView<ShipModel> CreateShip(ShipModel model);
-        
+
         public abstract IView<BulletModel> CreateBullet(BulletModel model);
-        
+
         public abstract IView<LaserModel> CreateLaser(LaserModel model);
-        
+
         public abstract IView<AsteroidModel> CreateAsteroid(AsteroidModel model);
-        
+
         public abstract IView<UfoModel> CreateUfo(UfoModel model);
     }
 }

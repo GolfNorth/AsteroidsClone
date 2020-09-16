@@ -5,13 +5,22 @@ namespace AsteroidsView
 {
     public class UnityViewFactory : ViewFactory
     {
+        #region Fields
+
         private readonly Context _context;
-        
+
+        #endregion
+
+        #region Constructor
+
         public UnityViewFactory(Context context)
         {
             _context = context;
         }
 
+        #endregion
+
+        #region Methods
 
         public override IView<ShipModel> CreateShip(ShipModel model)
         {
@@ -92,5 +101,7 @@ namespace AsteroidsView
 
             return view;
         }
+
+        #endregion
     }
 }

@@ -10,7 +10,7 @@ namespace AsteroidsView
         private float _radius;
 
         #endregion
-        
+
         #region Methods
 
         protected override void LateUpdate()
@@ -18,7 +18,7 @@ namespace AsteroidsView
             base.LateUpdate();
 
             if (_radius == Model.Radius) return;
-            
+
             transform.localScale = Vector3.one * (Model.Radius * 2f);
 
             _radius = Model.Radius;

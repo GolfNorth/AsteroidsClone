@@ -6,9 +6,14 @@ namespace AsteroidsView
 {
     public sealed class ViewModeManager : Manager
     {
-        private ViewMode _newViewMode;
+        #region Fields
+
         private ViewMode _prevViewMode;
         private Dictionary<ViewMode, Dictionary<IActor, IView>> _views;
+
+        #endregion
+
+        #region Methods
 
         private void Awake()
         {
@@ -43,18 +48,17 @@ namespace AsteroidsView
 
         private void SwitchViewMode<TModel>(Actor<TModel> actor) where TModel : Model
         {
-            if (!_views[_prevViewMode].ContainsKey(actor))
-            {
-                _views[_prevViewMode].Add(actor, actor.View);
-            }
+            if (!_views[_prevViewMode].ContainsKey(actor)) _views[_prevViewMode].Add(actor, actor.View);
 
             var newView = _views[Context.ViewMode].ContainsKey(actor)
-                 ? _views[Context.ViewMode][actor]
-                 : Context.ViewFactory.CreateView(actor.Model);
+                ? _views[Context.ViewMode][actor]
+                : Context.ViewFactory.CreateView(actor.Model);
 
             newView.IsActive = true;
             actor.View.IsActive = false;
             actor.View = (IView<TModel>) newView;
         }
+
+        #endregion
     }
 }

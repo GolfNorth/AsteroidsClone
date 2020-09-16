@@ -7,7 +7,6 @@ namespace AsteroidsView
         #region Fields
 
         [Header("View")]
-        
         public GameObject polygonalPrefab;
 
         public GameObject spritePrefab;

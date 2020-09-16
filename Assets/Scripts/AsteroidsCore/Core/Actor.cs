@@ -9,7 +9,7 @@ namespace AsteroidsCore
         protected Actor(World world) : base(world)
         {
             Model = (TModel) Activator.CreateInstance(typeof(TModel), World);
-            
+
             View = World.ViewFactory.CreateView(Model);
         }
 
