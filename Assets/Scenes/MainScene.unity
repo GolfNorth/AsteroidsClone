@@ -232,15 +232,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1121077250}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3074d3833205d7478afc5503d625972, type: 3}
+  m_Script: {fileID: 11500000, guid: c3eae58864c04fcca653bc61ac38ca39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipData: {fileID: 11400000, guid: 1f8f8144380c8ec4dbde7c9d65c64f80, type: 2}
-  ufoData: {fileID: 11400000, guid: ad08df33f7bf1fb44a72cbb86fab89a4, type: 2}
-  asteroidData: {fileID: 11400000, guid: 1f88e576ab504454c85959d7198b4be8, type: 2}
-  bulletData: {fileID: 11400000, guid: 3086c91791429bb4e9a5de43a40c4277, type: 2}
-  laserData: {fileID: 11400000, guid: eed38cade0d07ef4cad0a8e282480149, type: 2}
-  userInterfaceView: {fileID: 2063851678}
+  shipDataSetter: {fileID: 11400000, guid: 1f8f8144380c8ec4dbde7c9d65c64f80, type: 2}
+  ufoDataSetter: {fileID: 11400000, guid: ad08df33f7bf1fb44a72cbb86fab89a4, type: 2}
+  asteroidDataSetter: {fileID: 11400000, guid: 1f88e576ab504454c85959d7198b4be8, type: 2}
+  bulletDataSetter: {fileID: 11400000, guid: 3086c91791429bb4e9a5de43a40c4277, type: 2}
+  laserDataSetter: {fileID: 11400000, guid: eed38cade0d07ef4cad0a8e282480149, type: 2}
 --- !u!4 &1121077252
 Transform:
   m_ObjectHideFlags: 0
@@ -267,7 +266,7 @@ GameObject:
   - component: {fileID: 1135522129}
   - component: {fileID: 1135522128}
   m_Layer: 5
-  m_Name: Laser
+  m_Name: LaserText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -346,7 +345,7 @@ GameObject:
   - component: {fileID: 1184154700}
   - component: {fileID: 1184154699}
   m_Layer: 5
-  m_Name: GameOver
+  m_Name: GameOverText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -605,7 +604,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1b9dc3a914b27a4586ed1dff3812e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  world: {fileID: 1121077251}
   score: {fileID: 2133234052}
   laser: {fileID: 1135522128}
   gameover: {fileID: 1184154699}
@@ -703,7 +701,7 @@ GameObject:
   - component: {fileID: 2133234053}
   - component: {fileID: 2133234052}
   m_Layer: 5
-  m_Name: Score
+  m_Name: ScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

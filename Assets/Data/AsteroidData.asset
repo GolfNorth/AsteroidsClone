@@ -9,22 +9,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff19c813976270d4084a39193dadac49, type: 3}
+  m_Script: {fileID: 11500000, guid: 32a90a6ac8184a0fbb29b761c60c37d2, type: 3}
   m_Name: AsteroidData
   m_EditorClassIdentifier: 
   polygonalPrefab: {fileID: 6202715627726869972, guid: 6b0f46fe7a017bd46be4c0f70a8e87bc, type: 3}
   spritePrefab: {fileID: 6202715627726869972, guid: 854fff24bc86082409b6446df396be85, type: 3}
-  spawnDelay: 1.5
-  settings:
-  - AsteroidSize: 1
-    Radius: 1
-    MinSpeed: 1
-    MaxSpeed: 2
-  - AsteroidSize: 2
-    Radius: 0.75
-    MinSpeed: 2
-    MaxSpeed: 3
-  - AsteroidSize: 3
-    Radius: 0.5
-    MinSpeed: 3
-    MaxSpeed: 4
+  data:
+    spawnDelay: 1.5
+  asteroidSize:
+  - asteroidSize: 3
+    radius: 0.5
+    minSpeed: 3
+    maxSpeed: 4
+  - asteroidSize: 2
+    radius: 0.75
+    minSpeed: 2
+    maxSpeed: 3
+  - asteroidSize: 1
+    radius: 1
+    minSpeed: 1
+    maxSpeed: 2
