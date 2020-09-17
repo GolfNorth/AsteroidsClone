@@ -2,7 +2,7 @@
 
 ## Диаграмма классов
 
-[![Диаграмма классов](https://github.com/GolfNorth/AsteroidsClone/blob/master/Diagramms/Диаграмма%20классов.png?raw=true)](https://github.com/GolfNorth/AsteroidsClone/blob/master/Diagramms/Диаграмма%20классов.png?raw=true)
+[![Диаграмма классов](https://github.com/GolfNorth/AsteroidsClone/blob/master/Diagramms/Диаграмма%20классов%20новая.png?raw=true)](https://github.com/GolfNorth/AsteroidsClone/blob/master/Diagramms/Диаграмма%20классов%20новая.png?raw=true)
 
 ## Диаграмма последовательности
 
