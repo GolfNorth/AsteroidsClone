@@ -38,10 +38,7 @@ namespace AsteroidsView
                 _model.PositionChanged += _ => transform.position = _model.Position.ToUnity();
                 _model.AngleChanged += _ => transform.rotation = Quaternion.Euler(0, 0, _model.Angle);
 
-                IsActive = _model.IsActive && Context.ViewMode == ViewMode;
-                transform.position = _model.Position.ToUnity();
-                transform.rotation = Quaternion.Euler(0, 0, _model.Angle);
-
+                SyncView();
                 OnModelChanged();
             }
         }
@@ -54,6 +51,11 @@ namespace AsteroidsView
         {
             if (Model is null) return;
 
+            SyncView();
+        }
+
+        private void SyncView()
+        {
             IsActive = _model.IsActive && Context.ViewMode == ViewMode;
             transform.position = _model.Position.ToUnity();
             transform.rotation = Quaternion.Euler(0, 0, _model.Angle);

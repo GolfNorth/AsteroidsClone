@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace AsteroidsView
 {
-    public class UnityViewFactory : ViewFactory
+    public sealed class UnityViewFactory : ViewFactory
     {
         #region Fields
 

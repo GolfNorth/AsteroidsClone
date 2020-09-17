@@ -14,17 +14,12 @@ namespace AsteroidsView
 
         public World World { get; private set; }
         public ViewMode ViewMode { get; set; }
-
         public UnityViewFactory ViewFactory { get; private set; }
-
+        public UnityInputService InputService { get; private set; }
         public ShipDataSetter ShipDataSetter => shipDataSetter;
-
         public UfoDataSetter UfoDataSetter => ufoDataSetter;
-
         public AsteroidDataSetter AsteroidDataSetter => asteroidDataSetter;
-
         public BulletDataSetter BulletDataSetter => bulletDataSetter;
-
         public LaserDataSetter LaserDataSetter => laserDataSetter;
 
         private void Awake()
@@ -39,11 +34,21 @@ namespace AsteroidsView
                 BulletData = bulletDataSetter.data,
                 LaserData = laserDataSetter.data
             };
+            
+            InputService = new UnityInputService();
+            
             ViewFactory = new UnityViewFactory(this);
 
             GetBounds(out var width, out var height, out var offsetX, out var offsetY);
 
-            World = new World(width, height, dataStorage, ViewFactory, offsetX, offsetY);
+            World = new World(width, height, offsetX, offsetY)
+            {
+                DataStorage = dataStorage,
+                ViewFactory = ViewFactory,
+                InputService = InputService
+            };
+            
+            World.Initialize();
 
             var userInterfaceManager = new GameObject().AddComponent<UserInterfaceManager>();
             userInterfaceManager.Context = this;
@@ -54,6 +59,7 @@ namespace AsteroidsView
 
         private void Update()
         {
+            InputService.Tick();
             World.Tick();
         }
 

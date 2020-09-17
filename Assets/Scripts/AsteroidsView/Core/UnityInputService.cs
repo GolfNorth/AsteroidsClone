@@ -1,18 +1,10 @@
-﻿using UnityEngine;
+﻿using AsteroidsCore;
+using UnityEngine;
 
-namespace AsteroidsCore
+namespace AsteroidsView
 {
-    public sealed class InputService : ITickable
+    public sealed class UnityInputService : IInputService, ITickable
     {
-        #region Constructor
-
-        public InputService(World world)
-        {
-            world.UpdateService.Add(this);
-        }
-
-        #endregion
-
         #region Methods
 
         public void Tick()

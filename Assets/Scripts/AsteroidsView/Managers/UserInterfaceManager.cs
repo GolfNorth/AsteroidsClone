@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace AsteroidsView
 {
-    public class UserInterfaceManager : Manager
+    public sealed class UserInterfaceManager : Manager
     {
         #region Fields
 
