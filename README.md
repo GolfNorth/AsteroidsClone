@@ -6,6 +6,8 @@
 
 ## Диаграмма последовательности
 
+Честно признаюсь, никогда раньше не делал такие диаграммы
+
 [![Диаграмма последовательности](https://github.com/GolfNorth/AsteroidsClone/blob/master/Diagramms/Диаграмма%20последовательности.png?raw=true)](https://github.com/GolfNorth/AsteroidsClone/blob/master/Diagramms/Диаграмма%20последовательности.png?raw=true)
 
 ## Ссылка на скачивание
