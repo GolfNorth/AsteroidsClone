@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 
 namespace AsteroidsCore
 {
@@ -78,8 +79,8 @@ namespace AsteroidsCore
                 var angle = (float) Math.PI * Angle / 180f;
                 var direction = new Vector2
                 {
-                    x = (float) Math.Cos(angle),
-                    y = (float) Math.Sin(angle)
+                    X = (float) Math.Cos(angle),
+                    Y = (float) Math.Sin(angle)
                 };
 
                 return Vector2.Normalize(direction);

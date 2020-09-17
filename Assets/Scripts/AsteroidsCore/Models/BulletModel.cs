@@ -23,13 +23,13 @@ namespace AsteroidsCore
         {
             get
             {
-                if (Position.x < World.BoundsService.LeftBound - Offset) return false;
+                if (Position.X < World.BoundsService.LeftBound - Offset) return false;
 
-                if (Position.x > World.BoundsService.RightBound + Offset) return false;
+                if (Position.X > World.BoundsService.RightBound + Offset) return false;
 
-                if (Position.y < World.BoundsService.BottomBound - Offset) return false;
+                if (Position.Y < World.BoundsService.BottomBound - Offset) return false;
 
-                if (Position.y > World.BoundsService.TopBound + Offset) return false;
+                if (Position.Y > World.BoundsService.TopBound + Offset) return false;
 
                 return true;
             }

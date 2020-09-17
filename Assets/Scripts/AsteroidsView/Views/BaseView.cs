@@ -1,6 +1,6 @@
 ﻿using AsteroidsCore;
 using UnityEngine;
-using Vector2 = AsteroidsCore.Vector2;
+using Vector2 = System.Numerics.Vector2;
 
 namespace AsteroidsView
 {

@@ -1,4 +1,6 @@
-﻿namespace AsteroidsCore
+﻿using System.Numerics;
+
+namespace AsteroidsCore
 {
     public sealed class FireController : Controller, ITickable, IFixedTickable
     {

@@ -6,9 +6,9 @@ namespace AsteroidsView
     {
         #region Methods
 
-        public static Vector2 ToUnity(this AsteroidsCore.Vector2 vector)
+        public static Vector2 ToUnity(this System.Numerics.Vector2 vector)
         {
-            return new Vector2(vector.x, vector.y);
+            return new Vector2(vector.X, vector.Y);
         }
 
         #endregion

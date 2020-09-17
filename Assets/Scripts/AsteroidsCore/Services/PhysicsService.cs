@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 
 namespace AsteroidsCore
 {
@@ -8,8 +9,8 @@ namespace AsteroidsCore
 
         public bool PointAndCircleContact(Vector2 point, CircleShape circle)
         {
-            var distX = point.x - circle.Center.x;
-            var distY = point.y - circle.Center.y;
+            var distX = point.X - circle.Center.X;
+            var distY = point.Y - circle.Center.Y;
             var distance = (float) Math.Sqrt(distX * distX + distY * distY);
 
             return distance <= circle.Radius;
@@ -17,14 +18,14 @@ namespace AsteroidsCore
 
         public bool LineAndLineContact(LineShape lineA, LineShape lineB)
         {
-            var uA = ((lineB.PointB.x - lineB.PointA.x) * (lineA.PointA.y - lineB.PointA.y)
-                      - (lineB.PointB.y - lineB.PointA.y) * (lineA.PointA.x - lineB.PointA.x))
-                     / ((lineB.PointB.y - lineB.PointA.y) * (lineA.PointB.x - lineA.PointA.x)
-                        - (lineB.PointB.x - lineB.PointA.x) * (lineA.PointB.y - lineA.PointA.y));
-            var uB = ((lineA.PointB.x - lineA.PointA.x) * (lineA.PointA.y - lineB.PointA.y)
-                      - (lineA.PointB.y - lineA.PointA.y) * (lineA.PointA.x - lineB.PointA.x))
-                     / ((lineB.PointB.y - lineB.PointA.y) * (lineA.PointB.x - lineA.PointA.x)
-                        - (lineB.PointB.x - lineB.PointA.x) * (lineA.PointB.y - lineA.PointA.y));
+            var uA = ((lineB.PointB.X - lineB.PointA.X) * (lineA.PointA.Y - lineB.PointA.Y)
+                      - (lineB.PointB.Y - lineB.PointA.Y) * (lineA.PointA.X - lineB.PointA.X))
+                     / ((lineB.PointB.Y - lineB.PointA.Y) * (lineA.PointB.X - lineA.PointA.X)
+                        - (lineB.PointB.X - lineB.PointA.X) * (lineA.PointB.Y - lineA.PointA.Y));
+            var uB = ((lineA.PointB.X - lineA.PointA.X) * (lineA.PointA.Y - lineB.PointA.Y)
+                      - (lineA.PointB.Y - lineA.PointA.Y) * (lineA.PointA.X - lineB.PointA.X))
+                     / ((lineB.PointB.Y - lineB.PointA.Y) * (lineA.PointB.X - lineA.PointA.X)
+                        - (lineB.PointB.X - lineB.PointA.X) * (lineA.PointB.Y - lineA.PointA.Y));
 
             return uA >= 0 && uA <= 1 && uB >= 0 && uB <= 1;
         }
@@ -48,23 +49,23 @@ namespace AsteroidsCore
 
             if (inside1 || inside2) return true;
 
-            var distX = line.PointA.x - line.PointB.x;
-            var distY = line.PointA.y - line.PointB.y;
+            var distX = line.PointA.X - line.PointB.X;
+            var distY = line.PointA.Y - line.PointB.Y;
             var len = (float) Math.Sqrt(distX * distX + distY * distY);
 
-            var dot = ((circle.Center.x - line.PointA.x) * (line.PointB.x - line.PointA.x)
-                       + (circle.Center.y - line.PointA.y) * (line.PointB.y - line.PointA.y))
+            var dot = ((circle.Center.X - line.PointA.X) * (line.PointB.X - line.PointA.X)
+                       + (circle.Center.Y - line.PointA.Y) * (line.PointB.Y - line.PointA.Y))
                       / (float) Math.Pow(len, 2);
 
-            var closestX = line.PointA.x + dot * (line.PointB.x - line.PointA.x);
-            var closestY = line.PointA.y + dot * (line.PointB.y - line.PointA.y);
+            var closestX = line.PointA.X + dot * (line.PointB.X - line.PointA.X);
+            var closestY = line.PointA.Y + dot * (line.PointB.Y - line.PointA.Y);
 
             var onSegment = LineAndPointContact(line, new Vector2(closestX, closestY));
 
             if (!onSegment) return false;
 
-            distX = closestX - circle.Center.x;
-            distY = closestY - circle.Center.y;
+            distX = closestX - circle.Center.X;
+            distY = closestY - circle.Center.Y;
             var distance = (float) Math.Sqrt(distX * distX + distY * distY);
 
             return distance <= circle.Radius;
@@ -84,8 +85,8 @@ namespace AsteroidsCore
                 var vc = polygon.Points[current];
                 var vn = polygon.Points[next];
 
-                if ((vc.y >= point.y && vn.y < point.y || vc.y < point.y && vn.y >= point.y) &&
-                    point.x < (vn.x - vc.x) * (point.y - vc.y) / (vn.y - vc.y) + vc.x)
+                if ((vc.Y >= point.Y && vn.Y < point.Y || vc.Y < point.Y && vn.Y >= point.Y) &&
+                    point.X < (vn.X - vc.X) * (point.Y - vc.Y) / (vn.Y - vc.Y) + vc.X)
                     collision = !collision;
             }
 
@@ -169,15 +170,15 @@ namespace AsteroidsCore
             var cos = (float) Math.Cos(deltaAngle);
             var sin = (float) Math.Sin(deltaAngle);
 
-            var xa = line.PointA.x - line.Center.x;
-            var ya = line.PointA.y - line.Center.y;
-            var xb = line.PointB.x - line.Center.x;
-            var yb = line.PointB.y - line.Center.y;
+            var xa = line.PointA.X - line.Center.X;
+            var ya = line.PointA.Y - line.Center.Y;
+            var xb = line.PointB.X - line.Center.X;
+            var yb = line.PointB.Y - line.Center.Y;
 
-            line.PointA.x = line.Center.x + xa * cos - ya * sin;
-            line.PointA.y = line.Center.y + xa * sin + ya * cos;
-            line.PointB.x = line.Center.x + xb * cos - yb * sin;
-            line.PointB.y = line.Center.y + xb * sin + yb * cos;
+            line.PointA.X = line.Center.X + xa * cos - ya * sin;
+            line.PointA.Y = line.Center.Y + xa * sin + ya * cos;
+            line.PointB.X = line.Center.X + xb * cos - yb * sin;
+            line.PointB.Y = line.Center.Y + xb * sin + yb * cos;
         }
 
         public void TranslateLine(ref LineShape line, Vector2 deltaPosition)
@@ -196,11 +197,11 @@ namespace AsteroidsCore
 
             for (var i = 0; i < polygon.Points.Length; i++)
             {
-                var x = polygon.Points[i].x - polygon.Center.x;
-                var y = polygon.Points[i].y - polygon.Center.y;
+                var x = polygon.Points[i].X - polygon.Center.X;
+                var y = polygon.Points[i].Y - polygon.Center.Y;
 
-                polygon.Points[i].x = polygon.Center.x + x * cos - y * sin;
-                polygon.Points[i].y = polygon.Center.y + x * sin + y * cos;
+                polygon.Points[i].X = polygon.Center.X + x * cos - y * sin;
+                polygon.Points[i].Y = polygon.Center.Y + x * sin + y * cos;
             }
         }
 
@@ -216,7 +217,7 @@ namespace AsteroidsCore
             return new CircleShape
             {
                 Radius = original.Radius,
-                Center = new Vector2(original.Center.x, original.Center.y)
+                Center = new Vector2(original.Center.X, original.Center.Y)
             };
         }
 
@@ -224,9 +225,9 @@ namespace AsteroidsCore
         {
             return new LineShape
             {
-                PointA = new Vector2(original.PointA.x, original.PointA.y),
-                PointB = new Vector2(original.PointB.x, original.PointB.y),
-                Center = new Vector2(original.Center.x, original.Center.y)
+                PointA = new Vector2(original.PointA.X, original.PointA.Y),
+                PointB = new Vector2(original.PointB.X, original.PointB.Y),
+                Center = new Vector2(original.Center.X, original.Center.Y)
             };
         }
 
@@ -235,11 +236,11 @@ namespace AsteroidsCore
             var clone = new PolygonShape
             {
                 Points = new Vector2[original.Points.Length],
-                Center = new Vector2(original.Center.x, original.Center.y)
+                Center = new Vector2(original.Center.X, original.Center.Y)
             };
 
             for (var i = 0; i < original.Points.Length; i++)
-                clone.Points[i] = new Vector2(original.Points[i].x, original.Points[i].y);
+                clone.Points[i] = new Vector2(original.Points[i].X, original.Points[i].Y);
 
             return clone;
         }

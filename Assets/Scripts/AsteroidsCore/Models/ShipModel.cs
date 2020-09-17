@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 
 namespace AsteroidsCore
 {
@@ -63,8 +64,8 @@ namespace AsteroidsCore
 
             foreach (var point in _shape.Points)
             {
-                var x = Math.Abs(point.x);
-                var y = Math.Abs(point.y);
+                var x = Math.Abs(point.X);
+                var y = Math.Abs(point.Y);
                 var max = x > y ? x : y;
 
                 _offset = max > _offset ? max : _offset;
