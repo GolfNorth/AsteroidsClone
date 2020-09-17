@@ -11,7 +11,6 @@
         AsteroidDestroyed,
         BulletFired,
         LaserActivated,
-        LaserDeactivated,
-        ViewModeChanged
+        LaserDeactivated
     }
 }
