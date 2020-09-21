@@ -58,6 +58,8 @@ namespace AsteroidsCore
 
         public void Release(T obj)
         {
+            if (_queue.Contains(obj)) return;
+            
             obj.Disable();
             obj.IsActive = false;
             _queue.Enqueue(obj);
